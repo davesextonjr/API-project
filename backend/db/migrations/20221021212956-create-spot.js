@@ -10,19 +10,26 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ownerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: 'Customers'},
+        onDelete: 'CASCADE',
+        allowNull:false
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(300),
+        allowNull:false
       },
       city: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(50),
+        allowNull:false
       },
       state: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(30),
+        allowNull:false
       },
       country: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(30),
+        allowNull:false
       },
       lat: {
         type: Sequelize.FLOAT
@@ -31,13 +38,17 @@ module.exports = {
         type: Sequelize.FLOAT
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique:true
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false
       },
       price: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
+        allowNull:false
       },
       createdAt: {
         allowNull: false,
