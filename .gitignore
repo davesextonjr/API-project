@@ -3,3 +3,4 @@ node_modules
 build
 .DS_Store
 *.db
+sequelize_cheatsheet_2.pdf
