@@ -61,4 +61,13 @@ const setTokenCookie = (res, user) => {
     return next(err);
   }
 
-  module.exports = { setTokenCookie, restoreUser, requireAuth };
+  const authenticateUser = function (req, _res, next) {
+    if (req.user) return next();
+    const err = new Error("Authentication required");
+    err.title = "Authentication required";
+    err.errors = ["Authentication required"];
+    err.status = 401;
+    return next(err);
+
+  }
+  module.exports = { setTokenCookie, restoreUser, requireAuth, authenticateUser };

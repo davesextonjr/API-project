@@ -5,8 +5,8 @@ const { Model, Validator } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     toSafeObject(){
-      const {id, username, email} = this;
-      return {id, username, email}
+      const {firstName, lastName, id, username, email} = this;
+      return {firstName, lastName, id, username, email}
     };
 
     validatePassword(password) {
