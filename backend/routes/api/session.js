@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { setTokenCookie, restoreUser, authenticateUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation')
@@ -49,9 +49,9 @@ router.post(
     }
   );
 
-  router.get('/', restoreUser, (req, res) => {
+  router.get('/', restoreUser, authenticateUser, (req, res) => {
     const { user } = req;
-    if (user) {
+
       return res.json({
         id: user.id,
         firstName: user.firstName,
@@ -59,7 +59,7 @@ router.post(
         email: user.email,
         username: user.username
       })
-    } else return res.json({})
+
   })
 
 module.exports = router;
