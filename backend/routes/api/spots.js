@@ -51,11 +51,16 @@ router.get('/', async (req, res, next) => {
                 previewImage: obj.SpotImages[0].url
             })
         })
-
-
     res.json({
         Spots: responseBody
     })
 });
+
+router.post('/', async (req, res, next) => {
+    res.json({
+        req: req.body
+    })
+})
+
 
 module.exports = router;
