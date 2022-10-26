@@ -44,14 +44,6 @@ const validateSpotSignup =[
     handleValidationErrors
 ]
 
-
-
-
-
-
-
-
-
 router.get('/', async (req, res, next) => {
     const responseBody = [];
     const spots = await Spot.findAll({
@@ -115,25 +107,41 @@ router.post('/', authenticateUser, validateSpotSignup, async (req, res, next) =>
         description,
         price
     })
+    res.json(spot)
+})
 
+router.post('/:spotId/images', authenticateUser, async (req, res, next) => {
+    const { spotId } = req.params;
+    const currentSpot = await Spot.findByPk(spotId);
+    if(!currentSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Spot couldn't be found";
+        err.errors = ["Spot couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
 
+    const { url, preview } = req.body;
+    const currentUser = req.user.id;
+    const spotOwner = currentSpot.ownerId
 
+    if(currentUser !== spotOwner) {
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = ['Forbidden'];
+        err.status = 403;
+        return next(err);
+    }
 
-    res.json(spot
-        // id: "TBA",
-        // ownerId,
-        // address,
-        // city,
-        // state,
-        // country,
-        // lat,
-        // lng,
-        // name,
-        // description,
-        // price,
-        // createdAt: "TBA",
-        // updatedAt: "TBA"
-)
+    const newImage = await SpotImage.create({
+        url,
+        preview
+    })
+    res.json({
+        id: newImage.id,
+        url,
+        preview
+    })
 })
 
 
