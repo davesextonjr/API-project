@@ -8,6 +8,50 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize')
 const router = express.Router();
 
+const validateSpotSignup =[
+    check('address')
+        .exists({checkFalsy: true})
+        .withMessage('Street address is required'),
+    check('city')
+        .exists({checkFalsy: true})
+        .withMessage('City is required'),
+    check('state')
+        .exists({checkFalsy: true})
+        .withMessage('State is required'),
+    check('country')
+        .exists({checkFalsy: true})
+        .withMessage('Country is required'),
+    check('lat')
+        .exists({checkFalsy: true})
+        .isFloat({min: -90, max: 90})
+        .withMessage('Latitude is not valid'),
+    check('lng')
+        .exists({checkFalsy: true})
+        .isFloat({min: -180, max: 180})
+        .withMessage('Longitude is not valid'),
+    check('name')
+        .exists({checkFalsy: true})
+        .withMessage('Name is rquired'),
+    check('name')
+        .isLength({ max: 49})
+        .withMessage('Name must be less than 50 characters'),
+    check('description')
+        .exists({checkFalsy: true})
+        .withMessage('Description is required'),
+    check('price')
+        .exists({checkFalsy: true})
+        .withMessage('Price per day is required'),
+    handleValidationErrors
+]
+
+
+
+
+
+
+
+
+
 router.get('/', async (req, res, next) => {
     const responseBody = [];
     const spots = await Spot.findAll({
@@ -56,7 +100,7 @@ router.get('/', async (req, res, next) => {
     })
 });
 
-router.post('/', authenticateUser, async (req, res, next) => {
+router.post('/', authenticateUser, validateSpotSignup, async (req, res, next) => {
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
     const ownerId = req.user.id;
     const spot = await Spot.create({
