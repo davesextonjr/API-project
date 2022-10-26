@@ -1,7 +1,7 @@
 const express = require('express')
 const sequelize = require('sequelize')
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { setTokenCookie, requireAuth, authenticateUser } = require('../../utils/auth');
 const { User, Spot, Review, SpotImage } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -56,10 +56,40 @@ router.get('/', async (req, res, next) => {
     })
 });
 
-router.post('/', async (req, res, next) => {
-    res.json({
-        req: req.body
+router.post('/', authenticateUser, async (req, res, next) => {
+    const {address, city, state, country, lat, lng, name, description, price} = req.body;
+    const ownerId = req.user.id;
+    const spot = await Spot.create({
+        ownerId: ownerId,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
     })
+
+
+
+
+    res.json(spot
+        // id: "TBA",
+        // ownerId,
+        // address,
+        // city,
+        // state,
+        // country,
+        // lat,
+        // lng,
+        // name,
+        // description,
+        // price,
+        // createdAt: "TBA",
+        // updatedAt: "TBA"
+)
 })
 
 
