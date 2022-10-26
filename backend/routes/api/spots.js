@@ -47,55 +47,55 @@ const validateSpotSignup =[
 router.get('/', async (req, res, next) => {
     const responseBody = [];
     const spots = await Spot.findAll({
-        include:[
-            {
-                model: SpotImage,
-                attributes: ['url'],
-                where: {
-                    preview: true
-                }
-            },
-            {
-                model: Review,
-                attributes:['stars'] //collect for the avg
-            }
-        ]
-        })
+        // include:[
+        //     {
+        //         model: SpotImage,
+        //         attributes: ['url'],
+        //         where: {
+        //             preview: true
+        //         }
+        //     },
+        //     {
+        //         model: Review,
+        //         attributes:['stars'] //collect for the avg
+        //     }
+        // ]
+        // })
 
-        spots.forEach(obj => {
-            let sum = 0; //get the avg review
-            obj.Reviews.forEach(review => {
-                sum += review.stars
-            })
-            const avgRating = sum / obj.Reviews.length
+        // spots.forEach(obj => {
+        //     let sum = 0; //get the avg review
+        //     obj.Reviews.forEach(review => {
+        //         sum += review.stars
+        //     })
+        //     const avgRating = sum / obj.Reviews.length
 
-            responseBody.push({
-                id: obj.id,
-                ownerId: obj.ownerId,
-                address: obj.address,
-                city: obj.city,
-                state: obj.state,
-                country: obj.country,
-                lat: obj.lat,
-                lng: obj.lng,
-                name: obj.name,
-                description: obj.description,
-                price: obj.price,
-                createdAt: obj.createdAt,
-                updatedAt: obj.updatedAt,
-                avgRating: avgRating,
-                previewImage: obj.SpotImages[0].url
-            })
+        //     responseBody.push({
+        //         id: obj.id,
+        //         ownerId: obj.ownerId,
+        //         address: obj.address,
+        //         city: obj.city,
+        //         state: obj.state,
+        //         country: obj.country,
+        //         lat: obj.lat,
+        //         lng: obj.lng,
+        //         name: obj.name,
+        //         description: obj.description,
+        //         price: obj.price,
+        //         createdAt: obj.createdAt,
+        //         updatedAt: obj.updatedAt,
+        //         avgRating: avgRating,
+        //         previewImage: obj.SpotImages[0].url
+        //     })
         })
     res.json({
-        Spots: responseBody
+        Spots: spots
     })
 });
 
 router.post('/', authenticateUser, validateSpotSignup, async (req, res, next) => {
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
     const ownerId = req.user.id;
-    const spot = await Spot.create({
+    const spot = Spot.build({
         ownerId: ownerId,
         address,
         city,
@@ -107,6 +107,7 @@ router.post('/', authenticateUser, validateSpotSignup, async (req, res, next) =>
         description,
         price
     })
+    await spot.save()
     res.json(spot)
 })
 
@@ -142,6 +143,16 @@ router.post('/:spotId/images', authenticateUser, async (req, res, next) => {
         url,
         preview
     })
+})
+
+router.get('/current', authenticateUser, async (req, res) => {
+    const userSpots = await Spot.findAll({
+        where: {
+            ownerId: req.user.id
+        }
+    })
+
+    res.json(userSpots)
 })
 
 
