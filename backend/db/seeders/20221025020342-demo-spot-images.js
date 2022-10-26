@@ -7,18 +7,23 @@ module.exports = {
       {
         spotId: 1,
         url: "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg",
-        preview: false
+        preview: true
       },
       {
         spotId: 2,
         url: "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg",
-        preview: false
+        preview: true
+      },
+      {
+        spotId: 3,
+        url: "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg",
+        preview: true
       },
       {
         spotId: 3,
         url: "https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg",
         preview: false
-      },
+      }
     ])
   },
 
