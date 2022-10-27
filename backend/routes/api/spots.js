@@ -2,7 +2,7 @@ const express = require('express')
 const sequelize = require('sequelize')
 
 const { setTokenCookie, requireAuth, authenticateUser } = require('../../utils/auth');
-const { User, Spot, Review, SpotImage } = require('../../db/models');
+const { User, Spot, Review, SpotImage, Booking } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize')
@@ -233,6 +233,55 @@ router.put('/:spotId', authenticateUser, async (req, res, next) => {
     const updatedSpot = await Spot.findByPk(spotId)
     res.json({updatedSpot})
 
+})
+
+router.post('/:spotId/bookings', authenticateUser, async (req, res, err) => {
+    const { spotId } = req.params;
+    const { startDate, endDate } = req.body;
+    const userId = req.user.id;
+
+    const newBooking = await Booking.create({
+        spotId,
+        userId: userId,
+        startDate,
+        endDate
+    })
+
+    res.json(newBooking)
+})
+
+
+
+
+router.get('/:spotId/bookings', authenticateUser, async (req, res, err) => {
+    const userId = req.user.id;
+    const { spotId } = req.params;
+    const ownerCheck = await Spot.findOne({ //ownerCheck should be an empty object if the current spot does not belong to the current user
+        where: {
+            id:spotId,
+            ownerId: userId
+        }
+    })
+
+    let bookings;
+
+    if (!ownerCheck) {
+        bookings = await Booking.findAll({
+            where: {
+                spotId: spotId
+            },
+            attributes: ['spotId', 'startDate', 'endDate']
+        })
+    } else {
+        bookings = await Booking.findAll({
+            where: {
+                spotId: spotId
+            },
+            include: ['User']
+        })
+    }
+
+    res.json(bookings)
 })
 
 
