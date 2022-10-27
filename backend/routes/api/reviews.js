@@ -19,7 +19,13 @@ router.get('/current', authenticateUser, async (req, res) => {
         where: {
             userId: userId
         },
-        include: ['User', 'ReviewImages']
+        include: [
+            {
+                model: User
+            }, {
+                model: ReviewImage
+            }
+        ]
     })
     res.json(reviews)
 })
