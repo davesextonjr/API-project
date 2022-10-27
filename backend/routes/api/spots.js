@@ -160,6 +160,18 @@ router.post('/:spotId/reviews', authenticateUser, async (req, res, next) => {
     res.json(newReview)
 })
 
+router.get('/:spotId/reviews', async (req, res, next) => {
+    const { spotId } = req.params;
+    const spotReviews = await Review.findAll({
+        where: {
+            id: spotId
+        },
+        include: ['User', 'ReviewImages']
+    })
+
+    res.json(spotReviews)
+})
+
 
 router.get('/current', authenticateUser, async (req, res) => {
     const userSpots = await Spot.findAll({
