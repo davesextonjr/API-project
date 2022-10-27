@@ -39,6 +39,20 @@ router.post('/:reviewId/images', authenticateUser, async (req, res, next) => {
     })
 })
 
+router.put('/:reviewId', authenticateUser, async (req, res, nex) => {
+    const { reviewId } = req.params;
+    const { review, stars } = req.body;
+
+    await Review.update(
+        {review, stars},
+        {
+            where: {id: reviewId}
+        }
+    )
+    const updatedReview = await Review.findByPk(reviewId)
+    res.json(updatedReview)
+})
+
 
 
 

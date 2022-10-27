@@ -1,0 +1,13 @@
+-----
+GET ALL Spots
+    Could not get Sequelize to AVG correctly. Wound up averaging by getting an array of stars and using javaScript. ** WOULD A SECOND QUERRY BE BETTER? **
+
+
+---
+POST New Spot
+
+
+***Having an id defined in the model can cause problems.
+
+
+EXPRESS validators https://github.com/validatorjs/validator.js#validators
