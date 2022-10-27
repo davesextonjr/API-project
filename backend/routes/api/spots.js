@@ -144,5 +144,20 @@ router.post('/:spotId/images', authenticateUser, async (req, res, next) => {
     })
 })
 
+router.post('/:spotId/reviews', authenticateUser, async (req, res, next) => {
+    const { spotId } = req.params;
+    const { review, stars } = req.body;
+    const userId = req.user.id;
+
+    const newReview = await Review.create({
+        userId: userId,
+        spotId: spotId,
+        review,
+        stars
+    });
+
+    res.json(newReview)
+})
+
 
 module.exports = router;
