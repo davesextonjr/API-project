@@ -160,18 +160,6 @@ router.post('/:spotId/reviews', authenticateUser, async (req, res, next) => {
     res.json(newReview)
 })
 
-router.get('/current', authenticateUser, async (req, res) => {
-    const userId = req.user.id;
-    const spots = await Spot.findAll({
-        where: {
-            ownerId: userId
-        }
-    })
-
-router.get('/:spotId')
-
-    res.json(spots)
-})
 
 router.get('/current', authenticateUser, async (req, res) => {
     const userSpots = await Spot.findAll({
@@ -189,8 +177,6 @@ router.get('/:spotId', async (req, res, next) => {
         where: {
             id: spotId
         },
-
-
     });
     if(!spot) {
         const err = new Error("Spot couldn't be found");
