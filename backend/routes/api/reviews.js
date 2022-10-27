@@ -5,7 +5,8 @@ const { setTokenCookie, requireAuth, authenticateUser } = require('../../utils/a
 const { User, Spot, Review, SpotImage } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Op, json } = require('sequelize')
+const { Op, json } = require('sequelize');
+const reviewimage = require('../../db/models/reviewimage');
 const router = express.Router();
 
 router.get('/current', authenticateUser, async (req, res) => {
@@ -19,6 +20,17 @@ router.get('/current', authenticateUser, async (req, res) => {
     res.json(reviews)
 })
 
+router.post(':reviewId/images', authenticateUser, async (req, res, next) => {
+    const { reviewId } = req.params;
+    const { url } = req.body;
+
+    const newReviewImage = await reviewimage.create({
+        reviewId,
+        url
+    })
+
+    res.json(newReviewImage)
+})
 
 
 
