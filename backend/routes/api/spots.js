@@ -285,4 +285,7 @@ router.get('/:spotId/bookings', authenticateUser, async (req, res, err) => {
 })
 
 
+
+
+
 module.exports = router;
