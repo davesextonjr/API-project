@@ -87,13 +87,15 @@ router.get('/', async (req, res, next) => {
         //         previewImage: obj.SpotImages[0].url
         //     })
         })
-    res.json(spots)
+    res.json({
+        Spots: spots
+    })
 });
 
 router.post('/', authenticateUser, validateSpotSignup, async (req, res, next) => {
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
     const ownerId = req.user.id;
-    const spot = await Spot.create({
+    const spot = Spot.build({
         ownerId: ownerId,
         address,
         city,
@@ -105,6 +107,7 @@ router.post('/', authenticateUser, validateSpotSignup, async (req, res, next) =>
         description,
         price
     })
+    await spot.save()
     res.json(spot)
 })
 
@@ -168,6 +171,70 @@ router.get('/current', authenticateUser, async (req, res) => {
 router.get('/:spotId')
 
     res.json(spots)
+})
+
+router.get('/current', authenticateUser, async (req, res) => {
+    const userSpots = await Spot.findAll({
+        where: {
+            ownerId: req.user.id
+        }
+    })
+
+    res.json(userSpots)
+})
+
+router.get('/:spotId', async (req, res, next) => {
+    const { spotId } = req.params;
+    const spot = await Spot.findOne({
+        where: {
+            id: spotId
+        },
+
+
+    });
+    if(!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Spot couldn't be found";
+        err.errors = ["Spot couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
+
+    res.json(spot)
+})
+
+router.put('/:spotId', authenticateUser, async (req, res, next) => {
+    const { spotId } = req.params;
+    const currentSpot = await Spot.findByPk(spotId);
+    if(!currentSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Spot couldn't be found";
+        err.errors = ["Spot couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
+
+    const currentUser = req.user.id;
+    const spotOwner = currentSpot.ownerId
+
+    if(currentUser !== spotOwner) {
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = ['Forbidden'];
+        err.status = 403;
+        return next(err);
+    }
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+    ;
+    await Spot.update(
+         { address, city, state, country, lat, lng, name, description, price },
+         {
+            where: {id: spotId}
+         }
+    )
+    const updatedSpot = await Spot.findByPk(spotId)
+    res.json({updatedSpot})
+
 })
 
 
