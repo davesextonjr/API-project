@@ -159,5 +159,16 @@ router.post('/:spotId/reviews', authenticateUser, async (req, res, next) => {
     res.json(newReview)
 })
 
+router.get('/spots/current', requireAuth, async (req, res) => {
+    const userId = req.user.id;
+    const spots = await Spot.findAll({
+        where: {
+            ownerId: userId
+        }
+    })
+
+    res.json(spots)
+})
+
 
 module.exports = router;
