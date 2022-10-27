@@ -16,6 +16,20 @@ router.get('/current',authenticateUser, async (req, res) => {
     res.json(bookings)
 });
 
+router.put('/:bookingId', authenticateUser, async (req, res, err) => {
+    const { startDate, endDate } = req.body;
+    const { bookingId } = req.params;
+    const userId = req.user.id;
+
+    await Booking.update(
+        {startDate, endDate}, {
+            where: {id: bookingId}
+        }
+    );
+    const updatedBooking = await Booking.findByPk(bookingId);
+
+    res.json(updatedBooking);
+})
 
 
 
