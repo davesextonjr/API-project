@@ -16,10 +16,29 @@ router.get('/current',authenticateUser, async (req, res) => {
     res.json(bookings)
 });
 
-router.put('/:bookingId', authenticateUser, async (req, res, err) => {
+router.put('/:bookingId', authenticateUser, async (req, res, next) => {
     const { startDate, endDate } = req.body;
     const { bookingId } = req.params;
-    const userId = req.user.id;
+    const currentBooking = await Booking.findByPk(bookingId);
+
+    if(!currentBooking) {
+        const err = new Error("Booking couldn't be found");
+        err.title = "Booking couldn't be found";
+        err.errors = ["Booking couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
+
+    const currentUser = req.user.id;
+    const bookingOwner = currentBooking.userId
+
+    if(currentUser !== bookingOwner) {
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = ['Forbidden'];
+        err.status = 403;
+        return next(err);
+    }
 
     await Booking.update(
         {startDate, endDate}, {
@@ -33,6 +52,19 @@ router.put('/:bookingId', authenticateUser, async (req, res, err) => {
 
 router.delete('/:bookingId', authenticateUser, async (req, res, next) => {
     const { bookingId } = req.params;
+    const currentBooking = await Booking.findByPk(bookingId);
+
+    if(!currentBooking) {
+        const err = new Error("Booking couldn't be found");
+        err.title = "Booking couldn't be found";
+        err.errors = ["Booking couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
+
+
+
+
     await Booking.destroy({
         where: {
             id: bookingId
