@@ -11,3 +11,68 @@ POST New Spot
 
 
 EXPRESS validators https://github.com/validatorjs/validator.js#validators
+
+
+router.get('/', async (req, res, next) => {
+
+    const spots = await Spot.findAll({
+        include:[
+            {
+                model: SpotImage,
+                attributes: ['url'],
+                where: {
+                    //preview: true
+                }
+            },
+            {
+                model: Review,
+                attributes:['stars'] //collect for the avg
+            }
+        ]
+        })
+
+        // create response according to specifications:
+        const responseBody = [];
+        let avgRating;
+        let previewImage;
+
+        // iterate through the response
+        spots.forEach(obj => {
+
+        // check for ratings and get average
+            let sum = 0;
+
+            if(obj.Reviews.length) {
+                obj.Reviews.forEach(review => {
+                    sum += review.stars
+                })
+                 avgRating = sum / obj.Reviews.length;
+            } else {
+                 avgRating = null;
+            };
+
+        //check for preview image
+
+            if (obj.SpotImages.length)  previewImage = obj.SpotImages[0].url;
+
+        //build body
+            responseBody.push({
+                id: obj.id,
+                ownerId: obj.ownerId,
+                address: obj.address,
+                city: obj.city,
+                state: obj.state,
+                country: obj.country,
+                lat: obj.lat,
+                lng: obj.lng,
+                name: obj.name,
+                description: obj.description,
+                price: obj.price,
+                createdAt: obj.createdAt,
+                updatedAt: obj.updatedAt,
+                avgRating: avgRating,
+                previewImage: previewImage
+            })
+        })
+    res.json({Spots: responseBody})
+});
