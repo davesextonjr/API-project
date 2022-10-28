@@ -34,11 +34,21 @@ router.post('/:reviewId/images', authenticateUser, async (req, res, next) => {
     const { reviewId } = req.params;
     const { url } = req.body;
 
+    const currentReview = await Review.findByPk(reviewId);
+    if(!currentReview) {
+        const err = new Error("Review couldn't be found");
+        err.title = "Review couldn't be found";
+        err.errors = ["Review couldn't be found"];
+        err.status = 404;
+        return next(err);
+    };
+
+
     const newReviewImage = await ReviewImage.create({
         reviewId,
         url
     })
-
+    res.status(200);
     res.json({
         id: newReviewImage.id,
         url: newReviewImage.url
@@ -56,6 +66,8 @@ router.put('/:reviewId', authenticateUser, async (req, res, next) => {
         }
     )
     const updatedReview = await Review.findByPk(reviewId)
+
+    res.status(201)
     res.json(updatedReview)
 })
 
