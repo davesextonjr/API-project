@@ -47,6 +47,22 @@ const validateSpotSignup =[
 
 router.get('/', async (req, res, next) => {
 
+const { page, size } = req.query;
+if (!page) page = 1;
+if (!size) size = 20;
+if (page > 10) page = 10;
+if (size > 20) size = 20;
+
+const pagination = {};
+
+if (parseInt(page) >= 1 && parseInt(size) >= 1) {
+    pagination.limit = size
+    pagination.offset = size * (page - 1)
+}
+
+
+
+
     const spots = await Spot.findAll({
         include:[
             {
@@ -57,7 +73,8 @@ router.get('/', async (req, res, next) => {
                 model: Review,
                 attributes:['stars'] //collect for the avg
             }
-        ]
+        ],
+        ...pagination
         })
 
         // create response according to specifications:
@@ -107,7 +124,11 @@ router.get('/', async (req, res, next) => {
                 previewImage: previewImage
             })
         })
-    res.json({Spots: responseBody})
+    res.json({
+        Spots: responseBody,
+        page: page,
+        size: size
+    })
 });
 
 router.post('/', authenticateUser, validateSpotSignup, async (req, res, next) => {
@@ -509,7 +530,26 @@ router.get('/:spotId/bookings', authenticateUser, async (req, res, err) => {
 
 
 router.delete('/:spotId', authenticateUser, async (req, res, next) => {
- const { spotId } = req.params;
+    const { spotId } = req.params;
+    const currentSpot = await Spot.findByPk(spotId);
+    if(!currentSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Spot couldn't be found";
+        err.errors = ["Spot couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
+
+    const currentUser = req.user.id;
+    const spotOwner = currentSpot.ownerId
+
+    if(currentUser !== spotOwner) {
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = ['Forbidden'];
+        err.status = 403;
+        return next(err);
+    }
  await Spot.destroy({where: {id: spotId}});
 
  res.json ({
