@@ -47,7 +47,7 @@ const validateSpotSignup =[
 
 router.get('/', async (req, res, next) => {
 
-const { page, size } = req.query;
+let { page, size } = req.query;
 if (!page) page = 1;
 if (!size) size = 20;
 if (page > 10) page = 10;
