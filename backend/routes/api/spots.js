@@ -400,14 +400,72 @@ router.put('/:spotId', authenticateUser, async (req, res, next) => {
 
 })
 
-router.post('/:spotId/bookings', authenticateUser, async (req, res, err) => {
+router.post('/:spotId/bookings', authenticateUser, async (req, res, next) => {
     const { spotId } = req.params;
+
+    const currentSpot = await Spot.findByPk(spotId);
+    if(!currentSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Spot couldn't be found";
+        err.errors = ["Spot couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
+
+    const currentUser = req.user.id;
+    const spotOwner = currentSpot.ownerId
+
+    if(currentUser === spotOwner) {
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = ['Forbidden'];
+        err.status = 403;
+        return next(err);
+    }
+
     const { startDate, endDate } = req.body;
-    const userId = req.user.id;
+
+    let start = new Date(startDate);
+    let end = new Date(endDate);
+
+    if (start.getTime() > end.getTime()) {
+        const err = new Error('Validation error');
+        err.title = 'Validation error';
+        err.errors = ['endDate cannot be on or before startDate'];
+        err.status = 400;
+        return next(err);
+    }
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId: spotId
+        },
+        order:[['startDate', 'DESC']],
+    });
+
+    bookings.forEach(booking => {
+        if (booking.startDate === startDate) {
+            const err = new Error('"Sorry, this spot is already booked for the specified dates"');
+            err.title = '"Sorry, this spot is already booked for the specified dates"';
+            err.errors = ["Start date conflicts with an existing booking"];
+            err.status = 403;
+            return next(err);
+        }
+
+        if (booking.endDate === endDate) {
+            const err = new Error('"Sorry, this spot is already booked for the specified dates"');
+            err.title = '"Sorry, this spot is already booked for the specified dates"';
+            err.errors = ["End date conflicts with an existing booking"];
+            err.status = 403;
+            return next(err);
+        }
+
+    })
+
 
     const newBooking = await Booking.create({
         spotId,
-        userId: userId,
+        userId: currentUser,
         startDate,
         endDate
     })
