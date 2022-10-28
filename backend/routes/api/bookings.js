@@ -11,9 +11,59 @@ const router = express.Router();
 
 router.get('/current',authenticateUser, async (req, res) => {
     const userId = req.user.id;
-    const bookings = await Booking.findAll({where:{userId:userId}}); //find all current users bookings
+    const bookings = await Booking.findAll({
+        where:{
+            userId:userId
+        },
+        include: [{
+            model: Spot,
+            attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+                include: [
+                    {
+                        model: SpotImage,
+                        attributes: ['url']
+                    }
+                ]
+        }],
 
-    res.json(bookings)
+    });
+
+    const response = [];
+    bookings.forEach( obj => {
+        let previewImage = null;
+        if (obj.Spot.SpotImages) previewImage = obj.Spot.SpotImages[0].url
+
+        let correctFormat = {
+            id: obj.id,
+            userId: obj.userId,
+            spotId: obj.spotId,
+            createdAt: obj.createdAt,
+            updatedAt: obj.updatedAt,
+            startDate: obj.startDate,
+            endDate: obj.endDate,
+            Spot: {
+                id: obj.Spot.id,
+                ownerId: obj.Spot.ownerId,
+                address: obj.Spot.address,
+                city: obj.Spot.city,
+                state: obj.Spot.state,
+                country: obj.Spot.country,
+                lat: obj.Spot.lat,
+                lng: obj.Spot.lng,
+                name: obj.Spot.name,
+                price: obj.Spot.price,
+                previewImage: previewImage
+                },
+            ReviewImages: obj.ReviewImages
+        }
+
+        response.push(correctFormat)
+
+    })
+
+    res.json({
+    Bookings: response
+    })
 });
 
 router.put('/:bookingId', authenticateUser, async (req, res, next) => {
