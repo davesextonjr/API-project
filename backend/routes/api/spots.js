@@ -469,9 +469,10 @@ router.post('/:spotId/bookings', authenticateUser, async (req, res, next) => {
         },
         order:[['startDate', 'DESC']],
     });
-
+    let errorCheck = 0;
     const bookingcheck = await bookings.forEach(booking => {
         if (booking.startDate === startDate) {
+            errorCheck++
             const err = new Error('"Sorry, this spot is already booked for the specified dates"');
             err.title = '"Sorry, this spot is already booked for the specified dates"';
             err.errors = ["Start date conflicts with an existing booking"];
@@ -489,7 +490,7 @@ router.post('/:spotId/bookings', authenticateUser, async (req, res, next) => {
 
     })
 
-
+    if (errorCheck) return;
     const newBooking = await Booking.create({
         spotId,
         userId: currentUser,
