@@ -21,13 +21,64 @@ router.get('/current', authenticateUser, async (req, res) => {
         },
         include: [
             {
-                model: User
+                model: User,
+                attributes:['id', 'firstName', 'lastName']
             }, {
-                model: ReviewImage
-            }
+                model: Spot,
+                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+                include: [
+                    {
+                        model: SpotImage,
+                        attributes: ['url']
+                    }
+                ]
+            },{
+                model: ReviewImage,
+                attributes: ['id', 'url']
+            },
         ]
     })
-    res.json(reviews)
+
+    const response = [];
+
+    // let url = await SpotImage.findOne({
+    //     where: {
+    //         spotId: obj.Spot.id
+    //     }
+    // })
+    await reviews.forEach(async (obj) => {
+        let previewImage = null;
+        if (obj.Spot.SpotImages) previewImage = obj.Spot.SpotImages[0].url
+
+        let correctFormat = {
+            id: obj.id,
+            userId: obj.userId,
+            spotId: obj.spotId,
+            review: obj.review,
+            stars: obj.stars,
+            createdAt: obj.createdAt,
+            updatedAt: obj.updatedAt,
+            User: obj.User,
+            Spot: {id: obj.Spot.id,
+                ownerId: obj.Spot.ownerId,
+                address: obj.Spot.address,
+                city: obj.Spot.city,
+                state: obj.Spot.state,
+                country: obj.Spot.country,
+                lat: obj.Spot.lat,
+                lng: obj.Spot.lng,
+                name: obj.Spot.name,
+                price: obj.Spot.price,
+                previewImage: previewImage
+                },
+            ReviewImages: obj.ReviewImages
+        }
+
+        response.push(correctFormat)
+
+    })
+
+    res.json({Reviews: response })
 })
 
 router.post('/:reviewId/images', authenticateUser, async (req, res, next) => {
