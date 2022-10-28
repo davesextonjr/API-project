@@ -2,10 +2,11 @@ const express = require('express')
 const sequelize = require('sequelize')
 
 const { setTokenCookie, requireAuth, authenticateUser } = require('../../utils/auth');
-const { User, Spot, Review, SpotImage, Booking } = require('../../db/models');
+const { User, Spot, Review, SpotImage, Booking, ReviewImage } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
+const reviewimage = require('../../db/models/reviewimage');
 const router = express.Router();
 
 const validateSpotSignup =[
@@ -185,7 +186,7 @@ router.post('/:spotId/reviews', authenticateUser, async (req, res, next) => {
         }
     });
 
-    if (previousReviewCheck) {
+    if (previousReviewCheck.length) {
         const err = new Error("User already has a review for this spot");
         err.title = "User already has a review for this spot";
         err.errors = ["User already has a review for this spot"];
@@ -205,11 +206,31 @@ router.post('/:spotId/reviews', authenticateUser, async (req, res, next) => {
 
 router.get('/:spotId/reviews', async (req, res, next) => {
     const { spotId } = req.params;
+
+    const currentSpot = await Spot.findByPk(spotId);
+    if(!currentSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Spot couldn't be found";
+        err.errors = ["Spot couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
+
+
     const spotReviews = await Review.findAll({
         where: {
-            id: spotId
+            spotId: spotId
         },
-        include: ['User', 'ReviewImage']
+        include: [
+            {
+                model: User,
+                attributes:['id', 'firstName', 'lastName']
+            }, {
+                model: ReviewImage,
+                attributes: ['id', 'url']
+            }
+
+        ]
     })
 
     res.json(spotReviews)

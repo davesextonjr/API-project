@@ -110,6 +110,27 @@ router.put('/:reviewId', authenticateUser, async (req, res, next) => {
     const { reviewId } = req.params;
     const { review, stars } = req.body;
 
+
+    const currentReview = await Review.findByPk(reviewId);
+    if(!currentReview) {
+        const err = new Error("Review couldn't be found");
+        err.title = "Review couldn't be found";
+        err.errors = ["Review couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
+
+    const reviewOwner = currentReview.userId;
+    const currentUser = req.user.id;
+
+    if(currentUser !== reviewOwner) {
+        const err = new Error('Forbidden');
+        err.title = 'Forbidden';
+        err.errors = ['Forbidden'];
+        err.status = 403;
+        return next(err);
+    }
+
     await Review.update(
         {review, stars},
         {
@@ -118,7 +139,7 @@ router.put('/:reviewId', authenticateUser, async (req, res, next) => {
     )
     const updatedReview = await Review.findByPk(reviewId)
 
-    res.status(201)
+    res.status(200)
     res.json(updatedReview)
 })
 
