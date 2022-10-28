@@ -254,7 +254,9 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         ]
     })
 
-    res.json(spotReviews)
+    res.json({
+        Reviews: spotReviews
+    })
 })
 
 
@@ -383,7 +385,11 @@ router.get('/:spotId', async (req, res, next) => {
         avgStarRating: avgStarRating,
         // previewImage: previewImage,
         SpotImages: spotImage,
-        Owner: owner
+        Owner: {
+            id: owner.id,
+            firstName: owner.firstName,
+            lastName: owner.lastName
+        }
     })
 })
 
@@ -464,13 +470,13 @@ router.post('/:spotId/bookings', authenticateUser, async (req, res, next) => {
         order:[['startDate', 'DESC']],
     });
 
-    bookings.forEach(booking => {
+    const bookingcheck = await bookings.forEach(booking => {
         if (booking.startDate === startDate) {
             const err = new Error('"Sorry, this spot is already booked for the specified dates"');
             err.title = '"Sorry, this spot is already booked for the specified dates"';
             err.errors = ["Start date conflicts with an existing booking"];
             err.status = 403;
-            return next(err);
+            return res.next(err);
         }
 
         if (booking.endDate === endDate) {
@@ -478,7 +484,7 @@ router.post('/:spotId/bookings', authenticateUser, async (req, res, next) => {
             err.title = '"Sorry, this spot is already booked for the specified dates"';
             err.errors = ["End date conflicts with an existing booking"];
             err.status = 403;
-            return next(err);
+            return res.next(err);
         }
 
     })
@@ -497,9 +503,20 @@ router.post('/:spotId/bookings', authenticateUser, async (req, res, next) => {
 
 
 
-router.get('/:spotId/bookings', authenticateUser, async (req, res, err) => {
-    const userId = req.user.id;
+router.get('/:spotId/bookings', authenticateUser, async (req, res, next) => {
     const { spotId } = req.params;
+    const currentSpot = await Spot.findByPk(spotId);
+    if(!currentSpot) {
+        const err = new Error("Spot couldn't be found");
+        err.title = "Spot couldn't be found";
+        err.errors = ["Spot couldn't be found"];
+        err.status = 404;
+        return next(err);
+    }
+
+
+
+    const userId = req.user.id;
     const ownerCheck = await Spot.findOne({ //ownerCheck should be an empty object if the current spot does not belong to the current user
         where: {
             id:spotId,
@@ -525,7 +542,9 @@ router.get('/:spotId/bookings', authenticateUser, async (req, res, err) => {
         })
     }
 
-    res.json(bookings)
+    res.json(
+        {Bookings: bookings
+        })
 })
 
 
