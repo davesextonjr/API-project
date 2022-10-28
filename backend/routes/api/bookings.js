@@ -31,6 +31,19 @@ router.put('/:bookingId', authenticateUser, async (req, res, err) => {
     res.json(updatedBooking);
 })
 
+router.delete('/:bookingId', authenticateUser, async (req, res, next) => {
+    const { bookingId } = req.params;
+    await Booking.destroy({
+        where: {
+            id: bookingId
+        }
+    })
+
+    res.json ({
+        message: "Successfully deleted",
+        statusCode: 200
+    })
+})
 
 
 

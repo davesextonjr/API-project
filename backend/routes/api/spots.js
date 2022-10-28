@@ -136,7 +136,8 @@ router.post('/:spotId/images', authenticateUser, async (req, res, next) => {
 
     const newImage = await SpotImage.create({
         url,
-        preview
+        preview,
+        spotId: spotOwner
     })
     res.json({
         id: newImage.id,
@@ -282,6 +283,17 @@ router.get('/:spotId/bookings', authenticateUser, async (req, res, err) => {
     }
 
     res.json(bookings)
+})
+
+
+router.delete('/:spotId', authenticateUser, async (req, res, next) => {
+ const { spotId } = req.params;
+ await Spot.destroy({where: {id: spotId}});
+
+ res.json ({
+    message: "Successfully deleted",
+    statusCode: 200
+});
 })
 
 
