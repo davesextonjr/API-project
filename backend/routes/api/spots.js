@@ -285,7 +285,15 @@ router.get('/:spotId/bookings', authenticateUser, async (req, res, err) => {
 })
 
 
+router.delete('/:spotId', authenticateUser, async (req, res, next) => {
+ const { spotId } = req.params;
+ await Spot.destroy({where: {id: spotId}});
 
+ res.json ({
+    message: "Successfully deleted",
+    statusCode: 200
+});
+})
 
 
 module.exports = router;

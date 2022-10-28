@@ -45,7 +45,7 @@ router.post('/:reviewId/images', authenticateUser, async (req, res, next) => {
     })
 })
 
-router.put('/:reviewId', authenticateUser, async (req, res, nex) => {
+router.put('/:reviewId', authenticateUser, async (req, res, next) => {
     const { reviewId } = req.params;
     const { review, stars } = req.body;
 
@@ -59,6 +59,15 @@ router.put('/:reviewId', authenticateUser, async (req, res, nex) => {
     res.json(updatedReview)
 })
 
+router.delete('/:reviewId', authenticateUser, async (req, res, next) => {
+    const { reviewId } = req.params;
+    await Review.destroy({where: { id:reviewId }});
+
+    res.json ({
+        message: "Successfully deleted",
+        statusCode: 200
+    });
+})
 
 
 
