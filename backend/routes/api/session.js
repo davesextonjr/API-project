@@ -36,12 +36,13 @@ router.post(
       const token = await setTokenCookie(res, user);
 
       return res.json({
+       user:{
         id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        username: user.username,
-        token: token
+        username: user.username
+      }
       });
     }
   );
@@ -54,15 +55,17 @@ router.post(
     }
   );
 
-  router.get('/', restoreUser, authenticateUser, (req, res) => {
+  router.get('/', restoreUser, (req, res) => {
     const { user } = req;
-
-      return res.json({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        username: user.username
+      if (!user) return res.json({user: null})
+      else return res.json({
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          username: user.username
+        }
       })
 
   })
