@@ -26,12 +26,11 @@ const LOGOUT_USER = 'session/LOGOUT_USER';
             body: JSON.stringify({credential, password})
         })
         if (!response.ok) {
-            console.log("error logging in")
             return response.json()
         }else {
-        const user = await response.json();
-            dispatch(loginUser(user));
-            return user;
+        const data = await response.json();
+            dispatch(loginUser(data.user));
+            return response.json;
         }
     }
 
@@ -39,6 +38,26 @@ const LOGOUT_USER = 'session/LOGOUT_USER';
         const response = await csrfFetch('api/session');
         const data = await response.json();
         dispatch(loginUser(data.user))
+    }
+
+    export const signUpUserThunk = (firstName, lastName, email, username, password) => async dispatch => {
+        const response = await csrfFetch('api/users', {
+            method: 'POST',
+            body: JSON.stringify({
+                firstName,
+                lastName,
+                email,
+                username,
+                password
+            })
+        })
+        if (!response.ok) {
+            return response.json()
+        }else {
+        const data = await response.json();
+        dispatch(loginUser(data.user));
+        return response.json;
+        }
     }
 
 

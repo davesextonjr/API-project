@@ -76,3 +76,4 @@ router.get('/', async (req, res, next) => {
         })
     res.json({Spots: responseBody})
 });
+window.store.dispatch(window.sessionActions.signUpUserThunk('test', 'tester', 'test@gmail.com', 'tester1234', 'password')
