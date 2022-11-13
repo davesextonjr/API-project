@@ -25,12 +25,20 @@ const LOGOUT_USER = 'session/LOGOUT_USER';
             method: 'POST',
             body: JSON.stringify({credential, password})
         })
-        if (!response.ok) return response.json()
-        else {
+        if (!response.ok) {
+            console.log("error logging in")
+            return response.json()
+        }else {
         const user = await response.json();
             dispatch(loginUser(user));
             return user;
         }
+    }
+
+    export const loadCurrentUserThunk = () => async dispatch => {
+        const response = await csrfFetch('api/session');
+        const data = await response.json();
+        dispatch(loginUser(data.user))
     }
 
 
