@@ -29,7 +29,7 @@ export default function ProfileButton ({user}) {
     return (
         <>
             <button id="display-menu" onClick={displayMenu}>
-            <i class="fa-regular fa-circle-user"></i>
+            <i className="fa-regular fa-circle-user"></i>
             </button>
             {isMenuShown && (
                 <ul className="profile-dropdown">
