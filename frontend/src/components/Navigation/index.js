@@ -13,21 +13,21 @@ export default function Navigaion({isLoaded}) {
         sessionLinks = (<ProfileButton user={sessionUser} />)
     } else {
         sessionLinks = (
-            <>
+            <div className="login-signup-container">
                 <NavLink to="/login">Log In</NavLink>
                 <NavLink to="/signup">Sign Up</NavLink>
-            </>
+            </div>
         )
     }
 
     return (
-        <ul>
-            <li>
+        <div className="nav-bar">
+
                 <NavLink exact to="/">
                     <img id="logo" src={logo} />
                 </NavLink>
                 {isLoaded && sessionLinks}
-            </li>
-        </ul>
+
+        </div>
     )
 }

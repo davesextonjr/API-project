@@ -1,0 +1,39 @@
+.nav-bar {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 1%;
+}
+
+#logo {
+    width: 100px;
+}
+
+.login-signup-container {
+    display: flex;
+    justify-content: space-between;
+    width: 115px;
+}
+
+#display-menu {
+    display: flex;
+    height: 45px;
+    width: 100px;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 20%;
+    background-color: white;
+    border: 1px solid gray;
+}
+.dots{
+    font-size:x-large;
+}
+
+.fa-regular {
+    font-size: x-large;
+}
