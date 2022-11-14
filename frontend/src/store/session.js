@@ -16,9 +16,6 @@ const LOGOUT_USER = 'session/LOGOUT_USER';
     }
 
 
-
-
-
 //thunks
     export const loginUserThunk = (credential, password) => async (dispatch) => {
         const response = await csrfFetch ('api/session', {
@@ -58,6 +55,16 @@ const LOGOUT_USER = 'session/LOGOUT_USER';
         dispatch(loginUser(data.user));
         return response.json;
         }
+    }
+
+    export const logoutUserThunk = () => async dispatch => {
+        const response = await csrfFetch('/api/session', {
+            method: 'DELETE'
+        })
+        if(response.ok){
+            dispatch(logoutUser())
+        }
+        return response
     }
 
 
