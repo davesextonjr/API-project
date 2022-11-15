@@ -9,6 +9,7 @@ import { getSpots } from "./store/spots";
 import SpotsPage from "./components/Spots/Spots";
 import AddSpotForm from "./components/AddSpotForm";
 import SingleSpot from "./components/SingleSpot";
+import EditSpotForm from "./components/EditSpotForm";
 
 
 function App() {
@@ -35,6 +36,9 @@ function App() {
       </Route>
       <Route path='/spots/:spotId'>
         <SingleSpot />
+      </Route>
+      <Route path='/spot/edit/:spotId'>
+        <EditSpotForm />
       </Route>
       <Route path="/signup">
         <SignupFormPage />
