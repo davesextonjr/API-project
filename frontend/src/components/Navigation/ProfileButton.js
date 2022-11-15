@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 
 
@@ -45,7 +46,6 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
                     <ul className="profile-dropdown">
                         <li>
                             <button onClick={() => {
-                                console.log("here")
                                 setLogin(true)
                                 setShowModal(true)
                             }}>Log In</button>
@@ -56,6 +56,14 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
                                 setShowModal(true)
                             }}>Sign Up</button>
                         </li>
+                        <li>
+                            <NavLink to="/addSpot">
+                                <button>
+                                    Add A Spot
+                                </button>
+                            </NavLink>
+                        </li>
+
                     </ul>
                 )
             )}

@@ -64,6 +64,14 @@ export const editSpotThunk = ({spotId, address, city, state, country, lat, lng, 
     return newSpot;
     }
 }
+
+export const deleteSpotThunk = (spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    })
+    if(response.ok) dispatch(deleteSpot(spotId));
+    return response.json()
+}
 //selectors
 
 
@@ -88,6 +96,7 @@ export default function spotsReducer(state = {}, action) {
         case DELETE: {
             const newState = {...state}
             delete newState[action.spotId]
+            return newState
         }
 
         default: return state

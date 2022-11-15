@@ -5,7 +5,6 @@ import './Navigation.css'
 import ProfileButton from "./ProfileButton";
 import logo from '../../assets/NoRoomAtTheInn.png'
 import LoginForm from "../LoginFormModal/LoginForm";
-import LoginFormModal from "../LoginFormModal";
 import SignupFormPage from "../SignupFormPage";
 import { Modal } from "../../context/Modal";
 
@@ -14,62 +13,32 @@ export default function Navigation({isLoaded}) {
     const [showModal, setShowModal] = useState(false)
     const [login, setLogin] = useState(true)
 
-    // let sessionLinks;
-    // if (sessionUser) {
-    //     sessionLinks = (<ProfileButton user={sessionUser} />)
-    // } else {
-    //     sessionLinks = (
-    //         // <div className="login-signup-container">
-    //         //     <NavLink to="/login">Log In</NavLink>
-    //         //     <NavLink to="/signup">Sign Up</NavLink>
-    //         // </div>
-    //     <>
-    //         <LoginFormModal />
-    //         <NavLink to="/signup">Sign Up</NavLink>
-    //     </>
-    //     )
-    // }
 
     return (
-        // <div className="nav-bar">
 
-        //         <NavLink exact to="/">
-        //             <img id="logo" src={logo} />
-        //         </NavLink>
-        //         {isLoaded && (
-        //             <ProfileButton
-        //                 user={sessionUser}
-        //                 setLogin={setLogin}
-        //                 setShowModal={setShowModal}
-        //                 />
-        //             )}
-        //         {/* {isLoaded && sessionLinks} */}
-        //         {showModal && (
-        //             <Modal onClose={() => setShowModal(false)}>
-        //             {login ? <LoginForm setShowModal={setShowModal} /> : <SignupFormPage setShowModal={setShowModal}/>}
-        //         </Modal>}
-
-        // </div>
-        <ul>
-            <li>
-                <NavLink exact to="/">Home</NavLink>
+        <div className="nav-bar">
+            <NavLink exact to="/">
+                <img className="logo" src={logo} />
+            </NavLink>
+            <div className="nav-button-container">
+                <NavLink to="/addSpot">Add Your Spot</NavLink>
                 {isLoaded && (
                     <ProfileButton
-                        user={sessionUser}
-                        setLogin={setLogin}
-                        setShowModal={setShowModal}
+                    user={sessionUser}
+                    setLogin={setLogin}
+                    setShowModal={setShowModal}
                     />
-                )}
-            </li>
-            {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
-                    {login ? (
-                        <LoginForm setShowModal={setShowModal} />
-                    ) : (
-                        <SignupFormPage setShowModel={setShowModal} />
                     )}
-                </Modal>
-            )}
-        </ul>
+
+                {showModal && ( //control which form is shown
+
+                    <Modal onClose={() => setShowModal(false)}>
+                        {login ? (<LoginForm setShowModal={setShowModal} />) : (<SignupFormPage setShowModel={setShowModal} />)
+                            }
+                    </Modal>
+                )}
+            </div>
+
+        </div>
     )
 }

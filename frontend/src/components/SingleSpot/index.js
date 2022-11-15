@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
-import { findSpotById } from "../../store/singleSpot";
+import { NavLink, useHistory, useParams } from "react-router-dom";
+import { findSpotById, resetSingleSpotState } from "../../store/singleSpot";
+import { deleteSpotThunk } from "../../store/spots";
 
 
 export default function SingleSpot() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(findSpotById(spotId))
@@ -19,7 +21,14 @@ export default function SingleSpot() {
         return <div>No Spot Selcted</div>
     }
 
-
+    const deleteHandler = (e) => {
+        e.preventDefault()
+        if(window.confirm("Are you sure you want to delete this spot?")) {
+            dispatch(deleteSpotThunk(spotId))
+            dispatch(resetSingleSpotState())
+            history.push('/')
+        }
+    }
 
 
     return (
@@ -33,7 +42,7 @@ export default function SingleSpot() {
             {currentSpot && <div>{currentSpot.description}</div>}
 
             <NavLink to={`/spot/edit/${spotId}`} > Edit Spot </NavLink>
-
+            <button onClick={deleteHandler}>Delete</button>
         </>
 
     )
