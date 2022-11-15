@@ -2,7 +2,9 @@ import {useState, useEffect} from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from '../../store/session';
 
-export default function ProfileButton ({user}) {
+
+
+export default function ProfileButton ({user, setLogin, setShowModal}) {
     const dispatch = useDispatch();
     const [isMenuShown, setIsMenuShown] = useState(false);
 
@@ -32,14 +34,30 @@ export default function ProfileButton ({user}) {
                 <div className="dots">... | </div>
                 <i className="fa-regular fa-circle-user"></i>
             </button>
-            {isMenuShown && (
-                <ul className="profile-dropdown">
+            {isMenuShown && ( user ?
+                (<ul className="profile-dropdown">
                     <li>{user.username}</li>
                     <li>{user.email}</li>
                     <li>
                         <button id="logout-button" onClick={clickHandler}>Log Out</button>
                     </li>
-                </ul>
+                </ul>) : (
+                    <ul className="profile-dropdown">
+                        <li>
+                            <button onClick={() => {
+                                console.log("here")
+                                setLogin(true)
+                                setShowModal(true)
+                            }}>Log In</button>
+                        </li>
+                        <li>
+                            <button onClick={() => {
+                                setLogin(false)
+                                setShowModal(true)
+                            }}>Sign Up</button>
+                        </li>
+                    </ul>
+                )
             )}
         </>
 
