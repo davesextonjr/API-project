@@ -10,6 +10,7 @@ import SpotsPage from "./components/Spots/Spots";
 import AddSpotForm from "./components/AddSpotForm";
 import SingleSpot from "./components/SingleSpot";
 import EditSpotForm from "./components/EditSpotForm";
+import ItIsNotHere from "./components/FourOhFour/fourOhFour";
 
 
 function App() {
@@ -31,24 +32,22 @@ function App() {
       <Route exact path="/">
         <SpotsPage />
       </Route>
-      <Route path="/login">
-        <LoginFormPage />
-      </Route>
       <Route path='/spots/:spotId'>
         <SingleSpot />
       </Route>
       <Route path='/spot/edit/:spotId'>
         <EditSpotForm />
       </Route>
-      <Route path="/signup">
-        <SignupFormPage />
-      </Route>
       <Route path="/addspot">
         <AddSpotForm />
+      </Route>
+      <Route>
+        <ItIsNotHere />
       </Route>
     </Switch>
    </>
   );
 }
+
 
 export default App;
