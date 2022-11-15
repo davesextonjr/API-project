@@ -15,14 +15,18 @@ const setSpot = spot => ({
 export const findSpotById =  spotId => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`)
     if (response.ok) {
-        const spot = response.json();
+        const spot = await response.json();
         dispatch(setSpot(spot))
     }
 }
 
-export default function spotsReducer(state = {}, action) {
+export default function singleSpotReducer(state = {}, action) {
     switch(action.type) {
-
+        case SET_SPOT: {
+            const newState = {...state};
+            newState[action.spot.id] = action.spot;
+            return newState;
+        }
 
         default: return state
     }

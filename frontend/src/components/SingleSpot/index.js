@@ -1,10 +1,19 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { findSpotById } from "../../store/singleSpot";
 
 
 export default function SingleSpot() {
     const { spotId } = useParams();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(findSpotById(spotId))
+    },[spotId])
+
+    const currentSpot = useSelector(state => state.singleSpot[+spotId])
+    console.log(currentSpot)
 
 
 
@@ -12,14 +21,14 @@ export default function SingleSpot() {
 
     return (
         <>
-            {/* <div>{currentSpot.name}</div>
-            <div>{currentSpot.address}</div>
-            <div>{currentSpot.city}</div>
-            <div>{currentSpot.state}</div>
-            <div>{currentSpot.country}</div>
-            <div>{currentSpot.price}</div>
-            <div>{currentSpot.description}</div> */}
-            {spotId}
+            {currentSpot && <div>{currentSpot.name}</div>}
+            {currentSpot && <div>{currentSpot.address}</div>}
+            {currentSpot && <div>{currentSpot.city}</div>}
+            {currentSpot && <div>{currentSpot.state}</div>}
+            {currentSpot && <div>{currentSpot.country}</div>}
+            {currentSpot && <div>{currentSpot.price}</div>}
+            {currentSpot && <div>{currentSpot.description}</div>}
+
         </>
 
     )
