@@ -32,14 +32,23 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
     return (
         <>
             <button id="display-menu" onClick={displayMenu}>
-                <i class="fa-solid fa-bars"></i>
+                <i className="fa-solid fa-bars"></i>
                 <i className="fa-regular fa-circle-user"></i>
             </button>
             {isMenuShown && ( user ?
                 (<div className="profile-dropdown">
-                    <div>{user.username}</div>
-                    <div>{user.email}</div>
-                    <div>
+                   <div id="username-email-container">
+                        <div id="dropdown-username">{user.username}</div>
+                        <div>{user.email}</div>
+                   </div>
+
+                   <NavLink className="add-spot-container" to="/addSpot">
+                        <button id="dropdown-add-spot-button">
+                            Add A Spot
+                        </button>
+                    </NavLink>
+
+                    <div id="logout-button-container">
                         <button id="logout-button" onClick={clickHandler}>Log Out</button>
                     </div>
                 </div>) : (
@@ -56,12 +65,12 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
                                 setShowModal(true)
                             }}>Sign Up</button>
                         </div>
-                            <NavLink to="/addSpot">
-                                <button>
-                                    Add A Spot
-                                </button>
-                            </NavLink>
-                        </div>
+                        <NavLink className="add-spot-container" to="/addSpot">
+                            <button>
+                                Add A Spot
+                            </button>
+                        </NavLink>
+                    </div>
                 )
             )}
         </>

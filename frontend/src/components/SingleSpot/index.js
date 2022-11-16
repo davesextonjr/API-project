@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory, useParams } from "react-router-dom";
 import { findSpotById, resetSingleSpotState } from "../../store/singleSpot";
 import { deleteSpotThunk } from "../../store/spots";
+import './singleSpot.css'
 
 
 export default function SingleSpot() {
@@ -32,18 +33,46 @@ export default function SingleSpot() {
 
 
     return (
-        <>
-            {currentSpot && <div>{currentSpot.name}</div>}
-            {currentSpot && <div>{currentSpot.address}</div>}
-            {currentSpot && <div>{currentSpot.city}</div>}
-            {currentSpot && <div>{currentSpot.state}</div>}
-            {currentSpot && <div>{currentSpot.country}</div>}
-            {currentSpot && <div>{currentSpot.price}</div>}
-            {currentSpot && <div>{currentSpot.description}</div>}
+        <div id="spot-page">
+            {/* header */}
+            <div id="spot-header">
+                 <div>{currentSpot.name}</div>
+                 <div id="spot-header-nav">
+                    <div id="spot-header-nav-left">
+                       <div>★{currentSpot.avgStarRating}</div>
+                       <div>{currentSpot.numReviews}</div>
+                       <div>{currentSpot.city}, {currentSpot.state}, {currentSpot.country} </div>
+                    </div>
+                    <div id="spot-header-nav-right">
+                        <div>Share</div>
+                    </div>
+                 </div>
+            </div>
+            {/* pictures */}
+            <div id="spot-picture-container">
+                <img src={currentSpot.SpotImages[0].url} />
+            </div>
+            <div id="spot-owner-container">
+                <div>This spot is hosted by {currentSpot.Owner.firstName}</div>
+                <div>{currentSpot.city}</div>
+                <div>{currentSpot.state}</div>
+            </div>
+            <div id="spot-detail-card">
+                <div id="spot-price"><span>${currentSpot.price}</span> night</div>
+                <div>★{currentSpot.avgStarRating}</div>
+                <div>{currentSpot.numReviews}</div>
+
+                <button id="Write Review"></button>
+                <button id="Get Review"></button>
+            </div>
+
+            <div id="reviews"></div>
+
 
             <NavLink to={`/spot/edit/${spotId}`} > Edit Spot </NavLink>
             <button onClick={deleteHandler}>Delete</button>
-        </>
+
+        </div>
 
     )
 }

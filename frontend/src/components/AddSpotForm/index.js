@@ -24,7 +24,7 @@ export default function AddSpotForm() {
 
     console.log(sessionUser)
     if (!sessionUser) return (
-        <Redirect to='/login' />
+        <Redirect to='/' />
     )
 
     const handleSubmit = async (e) => {
@@ -54,7 +54,7 @@ export default function AddSpotForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form id="add-spot-container" onSubmit={handleSubmit}>
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>
