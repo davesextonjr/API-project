@@ -32,39 +32,36 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
     return (
         <>
             <button id="display-menu" onClick={displayMenu}>
-                <div className="dots">... | </div>
+                <i class="fa-solid fa-bars"></i>
                 <i className="fa-regular fa-circle-user"></i>
             </button>
             {isMenuShown && ( user ?
-                (<ul className="profile-dropdown">
-                    <li>{user.username}</li>
-                    <li>{user.email}</li>
-                    <li>
+                (<div className="profile-dropdown">
+                    <div>{user.username}</div>
+                    <div>{user.email}</div>
+                    <div>
                         <button id="logout-button" onClick={clickHandler}>Log Out</button>
-                    </li>
-                </ul>) : (
-                    <ul className="profile-dropdown">
-                        <li>
+                    </div>
+                </div>) : (
+                    <div className="profile-dropdown">
+                        <div>
                             <button onClick={() => {
                                 setLogin(true)
                                 setShowModal(true)
                             }}>Log In</button>
-                        </li>
-                        <li>
+                        </div>
+                        <div>
                             <button onClick={() => {
                                 setLogin(false)
                                 setShowModal(true)
                             }}>Sign Up</button>
-                        </li>
-                        <li>
+                        </div>
                             <NavLink to="/addSpot">
                                 <button>
                                     Add A Spot
                                 </button>
                             </NavLink>
-                        </li>
-
-                    </ul>
+                        </div>
                 )
             )}
         </>

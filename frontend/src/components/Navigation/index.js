@@ -21,7 +21,9 @@ export default function Navigation({isLoaded}) {
                 <img className="logo" src={logo} />
             </NavLink>
             <div className="nav-button-container">
-                <NavLink to="/addSpot">Add Your Spot</NavLink>
+                <NavLink  to="/addSpot">
+                    <button id="add-spot-button">Add Your Spot</button>
+                </NavLink>
                 {isLoaded && (
                     <ProfileButton
                     user={sessionUser}
