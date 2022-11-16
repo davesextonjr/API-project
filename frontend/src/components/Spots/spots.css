@@ -1,0 +1,51 @@
+.spots-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    gap: 0% 0%;
+    grid-template-areas:
+      "picture picture"
+      "text-left text-right";
+    width: 20%;
+  }
+.spot-info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.card-image-container{
+    grid-area: picture;
+}
+
+.card-city-state-price {
+    grid-area: text-left;
+}
+
+#card-city-state {
+    grid-area: text-left;
+    font-size: small;
+}
+#card-price {
+    grid-area: text-left;
+    align-self: baseline;
+}
+#card-reviews {
+grid-area: text-right;
+}
+
+.card-image-container > img {
+    height: 100%;
+    width: 100%
+}
