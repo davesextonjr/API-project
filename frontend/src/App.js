@@ -9,6 +9,8 @@ import AddSpotForm from "./components/AddSpotForm";
 import SingleSpot from "./components/SingleSpot";
 import EditSpotForm from "./components/EditSpotForm";
 import ItIsNotHere from "./components/FourOhFour/fourOhFour";
+import ReviewPage from "./components/ReviewPage";
+import AddReviewForm from "./components/AddReviewForm";
 
 
 function App() {
@@ -38,6 +40,12 @@ function App() {
       </Route>
       <Route path="/addspot">
         <AddSpotForm />
+      </Route>
+      <Route path="/reviews/:spotId/add">
+        <AddReviewForm />
+      </Route>
+      <Route path="/reviews/:spotId">
+        <ReviewPage />
       </Route>
       <Route>
         <ItIsNotHere />
