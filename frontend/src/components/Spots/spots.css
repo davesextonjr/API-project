@@ -1,13 +1,17 @@
+
+
 .spots-container{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 3%;
 }
 
 .card {
+    text-decoration: none;
+    color: black;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 2fr 1fr;
@@ -34,18 +38,25 @@
 }
 
 #card-city-state {
-    grid-area: text-left;
-    font-size: small;
+    font-size: 14px;
+    font-weight: bold;
 }
 #card-price {
-    grid-area: text-left;
-    align-self: baseline;
+    font-size: small;
+
 }
 #card-reviews {
 grid-area: text-right;
+font-size: small;
+text-align: end;
+padding: 1%;
+
 }
 
 .card-image-container > img {
-    height: 100%;
-    width: 100%
+    height: 98%;
+    width: 98%;
+    object-fit: contain;
+    border-radius: 8%;
+
 }

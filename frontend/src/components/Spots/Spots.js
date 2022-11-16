@@ -19,7 +19,7 @@ export default function SpotsPage() {
                                 <img className="card-image" src={spot.previewImage} />
                             </div>
                             <div className='card-city-state-price'>
-                                <h3 id="card-city-state">{spot.city},{spot.state}</h3>
+                                <h3 id="card-city-state">{spot.city}, {spot.state}</h3>
                                 <p id="card-price">${spot.price} night</p>
                             </div>
 
