@@ -1,3 +1,51 @@
-#spot-picture-container img {
-    width:400px
+
+#spot-page {
+    padding-top: 120px;
 }
+#spot-header {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin: auto;
+    gap: 15px;
+    margin-bottom: 3%;
+}
+
+#spot-header-nav{
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+}
+
+#spot-header-nav-left{
+    display: flex;
+    gap: 10px;
+}
+
+#spot-header-name{
+    font-size: x-large;
+    font-weight: 600;
+}
+
+
+#spot-picture-container {
+    display: flex;
+    width: 90%;
+    height: 50%;
+    margin: auto;
+    border-radius: 2%;
+
+    overflow: hidden;
+}
+
+
+#spot-picture-container img {
+    width: 40%;
+    object-fit: cover;
+
+}
+
+/* #spot-header-rating{
+
+
+} */

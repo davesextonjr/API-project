@@ -3,9 +3,10 @@
 .spots-container {
     display: grid;
     grid-auto-rows: 1fr;
+    grid-auto-flow: row dense;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 3% 2%;
-    width: 90%;
+    gap: 2% 5%;
+    width: 85%;
     margin: auto;
     padding-top: 120px;
   }
@@ -15,12 +16,13 @@
     color: black;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2fr 1fr;
+    grid-template-rows: 80% 20%;
     gap: 0% 0%;
     grid-template-areas:
       "picture picture"
       "text-left text-right";
     width: 100%;
+    height: 100%;
   }
 .spot-info {
     display: flex;
@@ -36,6 +38,11 @@
 
 .card-city-state-price {
     grid-area: text-left;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    margin-top: 5%;
+    margin-left: 3%;
 }
 
 #card-city-state {
@@ -60,60 +67,45 @@ padding: 1%;
 }
 
 .card-image-container > img {
-    height: 98%;
-    width: 98%;
-    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
     border-radius: 8%;
 
 }
 
 @media (max-width: 1127px) {
     .spots-container {
-        display: grid;
-        grid-auto-rows: 1fr;
+
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 3% 2%;
-        width: 90%;
-        margin: auto;
+
       }
 }
 @media (max-width: 949px) {
     .spots-container {
-        display: grid;
-        grid-auto-rows: 1fr;
+
         grid-template-columns: 1fr 1fr;
-        gap: 3% 2%;
-        width: 90%;
-        margin: auto;
+
       }
 }
 @media (max-width: 549px) {
     .spots-container {
-        display: grid;
-        grid-auto-rows: 1fr;
+
         grid-template-columns: 1fr;
-        gap: 3% 2%;
-        width: 90%;
-        margin: auto;
+
       }
 }
 @media (min-width: 1640px) {
     .spots-container {
-        display: grid;
-        grid-auto-rows: 1fr;
+
         grid-template-columns: repeat(5, 1fr);
-        gap: 3% 2%;
-        width: 90%;
-        margin: auto;
+
       }
 }
 @media (min-width: 1880px) {
     .spots-container {
-        display: grid;
-        grid-auto-rows: 1fr;
+
         grid-template-columns: repeat(6, 1fr);
-        gap: 3% 2%;
-        width: 90%;
-        margin: auto;
+
       }
 }

@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory, useParams } from "react-router-dom";
+import { getReviewsThunk } from "../../store/reviews";
 import { findSpotById, resetSingleSpotState } from "../../store/singleSpot";
 import { deleteSpotThunk } from "../../store/spots";
 import './singleSpot.css'
+import logo from '../../assets/NoRoomAtTheInn.png'
 
 
 export default function SingleSpot() {
@@ -13,6 +15,7 @@ export default function SingleSpot() {
 
     useEffect(() => {
         dispatch(findSpotById(spotId))
+        dispatch(getReviewsThunk(spotId))
     },[spotId])
 
     const currentSpot = useSelector(state => state.singleSpot[+spotId])
@@ -36,11 +39,11 @@ export default function SingleSpot() {
         <div id="spot-page">
             {/* header */}
             <div id="spot-header">
-                 <div>{currentSpot.name}</div>
+                 <div id="spot-header-name" >{currentSpot.name}</div>
                  <div id="spot-header-nav">
                     <div id="spot-header-nav-left">
-                       <div>★{currentSpot.avgStarRating}</div>
-                       <div>{currentSpot.numReviews}</div>
+                       <div id="spot-header-rating" >★ {currentSpot.avgStarRating}</div>
+                       <div id="spot-header-review-number">{currentSpot.numReviews} reviews</div>
                        <div>{currentSpot.city}, {currentSpot.state}, {currentSpot.country} </div>
                     </div>
                     <div id="spot-header-nav-right">
@@ -50,7 +53,7 @@ export default function SingleSpot() {
             </div>
             {/* pictures */}
             <div id="spot-picture-container">
-                <img src={currentSpot.SpotImages[0].url} />
+                <img id="spot-default-image" alt="" src={currentSpot.SpotImages[0].url} />
             </div>
             <div id="spot-owner-container">
                 <div>This spot is hosted by {currentSpot.Owner.firstName}</div>
