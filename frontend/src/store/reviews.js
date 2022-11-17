@@ -31,7 +31,7 @@ export const getReviewsThunk = spotId => async dispatch => {
 }
 
 
-export const addReviewThunk = ({spotId, stars, review}) => async dispatch =>{
+export const addReviewThunk = ({spotId, stars, review, currentUserObject, ReviewImages}) => async dispatch =>{
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         body: JSON.stringify({
@@ -42,7 +42,8 @@ export const addReviewThunk = ({spotId, stars, review}) => async dispatch =>{
     if (!response.ok) {
         return response.json()
     }else {
-    const newReview = await response.json();
+    const returnedReview = await response.json();
+    const newReview = {...returnedReview, spotId: +spotId, User: currentUserObject, ReviewImages}
     dispatch(addReview(newReview));
     return newReview;
     }
@@ -56,7 +57,7 @@ export default function reviewsReducer(state = {}, action) {
                 allReviews[review.id] = review
             });
             return {
-                ...state,
+                // ...state,
                 ...allReviews
             };
         case ADD_REVIEW: {

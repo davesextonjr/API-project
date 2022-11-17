@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { addReviewThunk } from "../../store/reviews";
 import './addReviewForm.css'
@@ -9,10 +9,12 @@ export default function AddReviewForm() {
     const {spotId} = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
+    const currentUserObject = useSelector(state => state.session)
 
     const [errors, setErrors] = useState([]);
     const [stars, setStars] = useState(5);
     const [review, setReview] = useState("It was the BEST!!!");
+    const [reviewImages, setReviewImages] = useState([])
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -21,7 +23,9 @@ export default function AddReviewForm() {
         const reviewInfo = {
             spotId,
             stars,
-            review
+            review,
+            currentUserObject,
+            reviewImages
         }
 
         const returnReview = await dispatch(addReviewThunk(reviewInfo))
