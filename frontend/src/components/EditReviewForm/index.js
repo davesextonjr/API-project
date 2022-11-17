@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { editReviewThunk } from "../../store/reviews";
+import { deleteReviewThunk, editReviewThunk } from "../../store/reviews";
 import "./editReviewForm.css";
 
 export default function EditReviewForm() {
@@ -18,6 +18,15 @@ export default function EditReviewForm() {
     const [stars, setStars] = useState(currentReview.stars);
     const [review, setReview] = useState(currentReview.review);
     const [reviewImages, setReviewImages] = useState(currentReview.ReviewImages || [])
+
+    const handleDeleteReview = (e) => {
+        e.preventDefault();
+        if(window.confirm("Are you sure you want to delete your review?")) {
+            dispatch(deleteReviewThunk(currentReview.id))
+            history.push(`/spots/${spotId}`)
+        }
+    }
+
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -63,6 +72,7 @@ export default function EditReviewForm() {
                     required />
             </label>
             <button type="submit">Update Review</button>
+            <button onClick={handleDeleteReview} id="delete-review">Delete Your Review</button>
         </form>
     )
 }
