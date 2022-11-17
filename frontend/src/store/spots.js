@@ -11,7 +11,7 @@ const load = spotsList => ({
     spotsList
 })
 
-const addSpot = (newSpot) => ({
+const addSpot = (newSpot) => ({ //used for adding and editing spots
     type: ADD_SPOT,
     newSpot
 })

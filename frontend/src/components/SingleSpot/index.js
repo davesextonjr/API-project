@@ -63,6 +63,7 @@ export default function SingleSpot() {
                 <div>{currentSpot.numReviews}</div>
 
                 <NavLink to={`/reviews/${spotId}/add`} id="write-review">Write a Review</NavLink>
+                <NavLink to={`/reviews/${spotId}/edit`} id="write-review">Edit Your Review</NavLink>
                 <NavLink to={`/reviews/${spotId}`} id="get-review">See All Reviews</NavLink>
             </div>
 

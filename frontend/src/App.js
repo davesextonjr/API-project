@@ -11,6 +11,7 @@ import EditSpotForm from "./components/EditSpotForm";
 import ItIsNotHere from "./components/FourOhFour/fourOhFour";
 import ReviewPage from "./components/ReviewPage";
 import AddReviewForm from "./components/AddReviewForm";
+import EditReviewForm from "./components/EditReviewForm";
 
 
 function App() {
@@ -43,6 +44,9 @@ function App() {
       </Route>
       <Route path="/reviews/:spotId/add">
         <AddReviewForm />
+      </Route>
+      <Route path="/reviews/:spotId/edit">
+        <EditReviewForm />
       </Route>
       <Route path="/reviews/:spotId">
         <ReviewPage />

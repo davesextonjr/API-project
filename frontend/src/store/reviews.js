@@ -10,7 +10,7 @@ const load = reviewsList => ({
     reviewsList
 })
 
-const addReview = newReview => ({
+const addReview = newReview => ({ //used for adding and editing reviews
     type: ADD_REVIEW,
     newReview
 })
@@ -49,6 +49,24 @@ export const addReviewThunk = ({spotId, stars, review, currentUserObject, Review
     }
 }
 
+export const editReviewThunk = ({spotId, reviewId, stars, review, currentUserObject, ReviewImages}) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            stars,
+            review
+        })
+    })
+    if (!response.ok) {
+        return response.json()
+    }else {
+    const returnedReview = await response.json();
+    const newReview = {...returnedReview, spotId: +spotId, User: currentUserObject, ReviewImages}
+    dispatch(addReview(newReview));
+    return newReview;
+    }
+}
+
 export default function reviewsReducer(state = {}, action) {
     switch(action.type) {
         case LOAD:
@@ -57,7 +75,7 @@ export default function reviewsReducer(state = {}, action) {
                 allReviews[review.id] = review
             });
             return {
-                // ...state,
+                ...state,
                 ...allReviews
             };
         case ADD_REVIEW: {
