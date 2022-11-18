@@ -33,7 +33,7 @@ export const getSpots = () => async dispatch => {
 };
 
     //new spot should be an object
-export const addSpotThunk = ({address, city, state, country, lat, lng, name, description, price}) => async dispatch =>{
+export const addSpotThunk = ({address, city, state, country, lat, lng, name, description, price, url, preview}) => async dispatch =>{
     const response = await csrfFetch('/api/spots', {
         method: 'POST',
         body: JSON.stringify({
@@ -44,10 +44,22 @@ export const addSpotThunk = ({address, city, state, country, lat, lng, name, des
         return response.json()
     }else {
     const newSpot = await response.json();
-    dispatch(addSpot(newSpot));
-    return newSpot;
+    const imageResponse = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+        method: 'POST',
+        body: JSON.stringify({
+            url, preview
+        })
+    })
+    if(!imageResponse.ok) {
+        return imageResponse.json()
+    } else {
+        dispatch(addSpot(newSpot));
+        return newSpot;
+        }
     }
 }
+
+
 
 export const editSpotThunk = ({spotId, address, city, state, country, lat, lng, name, description, price}) => async dispatch =>{
     const response = await csrfFetch(`/api/spots/${spotId}`, {

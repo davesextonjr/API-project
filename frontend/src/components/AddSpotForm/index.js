@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addSpotThunk } from "../../store/spots";
 import { Redirect, useHistory } from "react-router-dom";
 import './addSpotForm.css'
-import defaultImage from '../../assets/cat-image-coming-soon.jpeg'
+
 
 
 
@@ -21,8 +21,8 @@ export default function AddSpotForm() {
     const [lng, setLng] = useState(-122.4730327);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [price, setPrice] = useState(100)
-    const [url, setUrl] = useState("")
+    const [price, setPrice] = useState(100);
+    const [url, setUrl] = useState("");
 
     console.log(sessionUser)
     if (!sessionUser) return (
@@ -34,10 +34,11 @@ export default function AddSpotForm() {
             <div> Login or signup to begin exploring your earning potential!</div>
         </div>
     )
-    console.log(defaultImage)
+
 
     const handleSubmit = async (e) => {
-        if(!url) setUrl(defaultImage)
+        e.preventDefault();
+        setErrors([]);
 
         const newSpot = {
             address,
@@ -55,8 +56,6 @@ export default function AddSpotForm() {
 
 
 
-        e.preventDefault();
-        setErrors([]);
         const returnSpot = await dispatch(addSpotThunk(newSpot))
         .catch(async (res) => {
             const data = await res.json();
@@ -64,6 +63,7 @@ export default function AddSpotForm() {
         });
         if(errors.length) return alert("something went wrong");
         history.push(`/spots/${returnSpot.id}`)
+
     }
 
     return (
@@ -132,7 +132,11 @@ export default function AddSpotForm() {
                     id="spot-url"
                     type='url'
                     placeholder="https://example.com"
-                    pattern="https://.*"></input>
+                    pattern="https://.*"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    required
+                    ></input>
             </label>
 
 
