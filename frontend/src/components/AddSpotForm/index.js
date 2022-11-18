@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addSpotThunk } from "../../store/spots";
 import { Redirect, useHistory } from "react-router-dom";
 import './addSpotForm.css'
+import defaultImage from '../../assets/cat-image-coming-soon.jpeg'
 
 
 
@@ -21,13 +22,23 @@ export default function AddSpotForm() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(100)
+    const [url, setUrl] = useState("")
 
     console.log(sessionUser)
     if (!sessionUser) return (
-        <Redirect to='/' />
+        <div id="no-user-add-spot-container">
+            <div id="no-user-add-spot-header">
+                <div>What could you do</div>
+                <div>With a little extra cash?</div>
+            </div>
+            <div> Login or signup to begin exploring your earning potential!</div>
+        </div>
     )
+    console.log(defaultImage)
 
     const handleSubmit = async (e) => {
+        if(!url) setUrl(defaultImage)
+
         const newSpot = {
             address,
             city,
@@ -37,7 +48,9 @@ export default function AddSpotForm() {
             lng,
             name,
             description,
-            price
+            price,
+            url,
+            preview: true // todo: add dynamic funcionality
         }
 
 
@@ -114,6 +127,15 @@ export default function AddSpotForm() {
                     onChange={(e) => setPrice(e.target.value)}
                     required />
             </label>
+            <label htmlFor="spot-url">Your spot will look better with an image. Enter one now or come back to it soon.
+                <input
+                    id="spot-url"
+                    type='url'
+                    placeholder="https://example.com"
+                    pattern="https://.*"></input>
+            </label>
+
+
             <button type="submit">Add Spot</button>
 
 

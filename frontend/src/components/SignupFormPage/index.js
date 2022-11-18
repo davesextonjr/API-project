@@ -51,7 +51,12 @@ export default function SignupFormPage({ setShowModel }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form id="signup-form" onSubmit={handleSubmit}>
+            <div id="signup-form-header">
+                <p>Sign up</p>
+            </div>
+            <div id="get-started"> Let's Get Started</div>
+
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>

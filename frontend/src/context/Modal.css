@@ -1,3 +1,4 @@
+
 #modal {
     position: fixed;
     top: 0;
@@ -7,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 5;
   }
 
   #modal-background {
@@ -20,5 +22,11 @@
 
   #modal-content {
     position: absolute;
+
     background-color:white;
+    width: 550px;
+    height: 690px;
+    border-radius: 2%;
+    overflow: hidden;
+
   }

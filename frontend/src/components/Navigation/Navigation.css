@@ -19,6 +19,9 @@
     padding-bottom: 1%;
     width: 205px;
 }
+.nav-button-container a button{
+    z-index: 6;
+}
 
 .profile-dropdown{
     display: flex;

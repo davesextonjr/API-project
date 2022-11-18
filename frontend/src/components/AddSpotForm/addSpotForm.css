@@ -1,3 +1,13 @@
+#no-user-add-spot-container{
+    padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+    align-items: center;
+}
+
+
 #add-spot-container{
     padding-top: 120px;
 }

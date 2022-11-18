@@ -1,11 +1,13 @@
-#signup-form{
+#login-form{
     display: flex;
     flex-direction: column;
     gap: 10px;
+
     height: 100%;
 
+
 }
-#signup-form-header{
+#login-form-header{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,7 +16,7 @@
     width: 100%;
     padding: 3%;
 }
-#get-started{
+#welcome-back{
     font-size: x-large;
     width: 94%;
     margin-left: 3%;

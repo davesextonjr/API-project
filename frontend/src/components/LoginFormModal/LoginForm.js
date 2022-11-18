@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
+import './loginForm.css'
+
 
 export default function LoginForm({ setShowModal }) {
     const dispatch = useDispatch();
@@ -23,7 +25,11 @@ export default function LoginForm({ setShowModal }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form id="login-form" onSubmit={handleSubmit}>
+            <div id="login-form-header">
+                <p>Please log in</p>
+            </div>
+            <div id="welcome-back"> Welcome Back</div>
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>
