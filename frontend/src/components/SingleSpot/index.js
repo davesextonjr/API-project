@@ -30,9 +30,11 @@ export default function SingleSpot() {
 
     const currentUser= useSelector(state => state.session.user)
 
+    if (currentUser && currentSpot) console.log("Owner Check: ", currentUser.id, currentSpot.Owner.id, currentUser.id === currentSpot.Owner.id)
 
 
-    if (currentUser) console.log(reviewerId.includes(currentUser.id))
+
+    if (currentUser) console.log("current user has a review", reviewerId.includes(currentUser.id))
     // console.log("Array of reviewer ids", reviewerId)
 
     if(! currentSpot) {
@@ -107,13 +109,19 @@ export default function SingleSpot() {
 
             {/* add or edit review logic */}
 
-            {currentUser && reviewerId.includes(currentUser.id) ? (
+            {/* {currentUser && reviewerId.includes(currentUser.id) ? (
                 <NavLink to={`/reviews/${spotId}/edit`} id="write-review">Edit Your Review</NavLink>
             ) : (
                 <NavLink to={`/reviews/${spotId}/add`} id="write-review">Write a Review</NavLink>
+            )} */}
+
+            {currentUser && reviewerId.includes(currentUser.id) &&  <NavLink to={`/reviews/${spotId}/edit`} id="write-review">Edit Your Review</NavLink>}
+
+            {currentUser && !(reviewerId.includes(currentUser.id)) && <NavLink to={`/reviews/${spotId}/add`} id="write-review">Write a Review</NavLink>}
+
+            {!currentUser && (
+                <p>Please log in or sign up to leave a review</p>
             )}
-
-
 
                 <NavLink to={`/reviews/${spotId}`} id="get-review">See All Reviews</NavLink>
 
@@ -123,9 +131,13 @@ export default function SingleSpot() {
 
             <div id="reviews"></div>
 
+            { currentUser && currentSpot && currentUser.id === currentSpot.Owner.id &&
+            (<div id="edit-delete-spot-container">
 
-            <NavLink to={`/spot/edit/${spotId}`} > Edit Spot </NavLink>
-            <button onClick={deleteHandler}>Delete</button>
+                <NavLink to={`/spot/edit/${spotId}`} > Edit Spot </NavLink>
+                <button onClick={deleteHandler}>Delete</button>
+
+            </div>)}
 
         </div>
 
