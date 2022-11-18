@@ -7,6 +7,7 @@ import * as sessionActions from '../../store/session';
 
 export default function ProfileButton ({user, setLogin, setShowModal}) {
     const dispatch = useDispatch();
+    const [errors, setErrors] = useState([])
     const [isMenuShown, setIsMenuShown] = useState(false);
 
     const displayMenu = () => {
@@ -27,6 +28,19 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
     const clickHandler = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logoutUserThunk())
+    }
+
+    const loginDemoUser = async (e) => {
+
+        e.preventDefault();
+        setErrors([]);
+        const response = await dispatch(sessionActions.loginUserThunk("FakeUser9", "password"))
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+            return
+        });
+        if(response) setShowModal(false);
     }
 
     return (
@@ -64,6 +78,9 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
                                 setLogin(false)
                                 setShowModal(true)
                             }}>Sign Up</button>
+                        </div>
+                        <div>
+                            <button onClick={loginDemoUser}>Demo User</button>
                         </div>
                         <NavLink className="add-spot-container" to="/addSpot">
                             <button>

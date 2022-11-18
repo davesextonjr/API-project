@@ -1,0 +1,9 @@
+#edit-spot-form{
+    padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+    align-items: center;
+    gap: 10px;
+}

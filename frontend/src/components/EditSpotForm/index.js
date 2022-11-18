@@ -32,7 +32,9 @@ export default function EditSpotForm() {
     const [lng, setLng] = useState(currentSpot.lng);
     const [name, setName] = useState(currentSpot.name);
     const [description, setDescription] = useState(currentSpot.description);
-    const [price, setPrice] = useState(currentSpot.price)
+    const [price, setPrice] = useState(currentSpot.price);
+
+
 
 
     const handleSubmit = async (e) => {
@@ -63,7 +65,7 @@ export default function EditSpotForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form id="edit-spot-form" onSubmit={handleSubmit}>
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>
