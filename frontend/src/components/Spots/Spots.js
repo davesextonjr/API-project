@@ -17,7 +17,7 @@ export default function SpotsPage() {
                     // <div className="card">
                         <NavLink className="card" key={`spot-${spot.id}`} to={`/spots/${spot.id}`}>
                             <div className="card-image-container">
-                                <img className="card-image" src={spot.previewImage} alt="logo" />
+                                <img className="card-image" src={spot.previewImage} alt={logo} />
                             </div>
                             <div className='card-city-state-price'>
                                 <p id="card-city-state">{spot.city}, {spot.state}</p>

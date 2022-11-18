@@ -1,11 +1,12 @@
 
 #spot-page {
     padding-top: 120px;
+
 }
 #spot-header {
     display: flex;
     flex-direction: column;
-    width: 95%;
+    width: 90%;
     margin: auto;
     gap: 15px;
     margin-bottom: 3%;
@@ -29,20 +30,120 @@
 
 
 #spot-picture-container {
-    display: flex;
+    display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1% 1%;
+  grid-template-areas:
+    "main-picture picture-one picture-two"
+    "main-picture picture-three picture-four";
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
     width: 90%;
-    height: 50%;
-    margin: auto;
-    border-radius: 2%;
+  height: 50%;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 2%;
 
-    overflow: hidden;
+}
+#spot-default-image-container{
+    grid-area: main-picture;
+    height: 100%;
+    width: 100%;
 }
 
-
-#spot-picture-container img {
-    width: 40%;
+#spot-default-image{
+    height: 100%;
+    width: 100%;
     object-fit: cover;
+    grid-area: main-picture;
+}
 
+.spot-secondary-pictures img{
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pic-one{
+    grid-area: picture-one;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.pic-two{
+    grid-area: picture-two;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.pic-three{
+    grid-area: picture-three;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.pic-four{
+    grid-area: picture-four;
+    height: 100%;
+    width: 100%;
+
+}
+
+#spot-owner-container{
+    display: flexbox;
+    flex-direction: column;
+    width: 50%;
+    padding-top: 3%;
+    margin-left: 5%;
+    padding-bottom: 2%;
+    border-bottom: lightgray solid 1px;
+
+
+}
+#onwner-title{
+    font-size: large;
+    font-weight: 600;
+    padding-bottom: 1%;
+}
+
+#city-state-undercard{
+    display:flex;
+    gap: 1%;
+    font-size: small;
+}
+
+#spot-detail-card{
+    border: lightgrey 1px solid;
+    box-shadow: 0px 0px 12px lightgrey;
+    border-radius: 4%;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    padding: 3%;
+    margin: auto;
+    margin-left: 60%;
+    margin-right: 5%;
+    margin-top: -6%;
+}
+
+#spot-price span{
+    font-size: larger;
+    font-weight: 600;
+}
+
+#spot-detail-card-header{
+    display: flex;
+    justify-content: space-between;
+}
+#spot-detail-card-review-container{
+    display: flex;
+    font-size: small;
+    justify-content: flex-end;
+    width: 50%;
 }
 
 /* #spot-header-rating{

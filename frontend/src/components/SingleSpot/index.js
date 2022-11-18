@@ -5,7 +5,10 @@ import { getReviewsThunk } from "../../store/reviews";
 import { findSpotById, resetSingleSpotState } from "../../store/singleSpot";
 import { deleteSpotThunk } from "../../store/spots";
 import './singleSpot.css'
-import logo from '../../assets/NoRoomAtTheInn.png'
+import sign from '../../assets/lets-be-cozy.jpeg'
+import kitchen from '../../assets/rustic-kitchen.jpeg'
+import garden from "../../assets/indoor-garden.jpeg"
+import library from "../../assets/overstuffed chair.jpeg"
 
 
 export default function SingleSpot() {
@@ -20,6 +23,17 @@ export default function SingleSpot() {
 
     const currentSpot = useSelector(state => state.singleSpot[+spotId])
     console.log(currentSpot)
+
+    const reviewsArray = useSelector(state => Object.values(state.reviews));
+
+    const reviewerId = reviewsArray.map(reviewObj => reviewObj.userId)
+
+    const currentUser= useSelector(state => state.session.user)
+
+
+
+    if (currentUser) console.log(reviewerId.includes(currentUser.id))
+    // console.log("Array of reviewer ids", reviewerId)
 
     if(! currentSpot) {
         return <div>No Spot Selcted</div>
@@ -53,21 +67,58 @@ export default function SingleSpot() {
             </div>
             {/* pictures */}
             <div id="spot-picture-container">
-                <img id="spot-default-image" alt="" src={currentSpot.SpotImages[0].url} />
+                <div id="spot-default-image-container">
+                    <img id="spot-default-image" src={currentSpot.SpotImages[0].url} />
+                </div>
+                <div className="spot-secondary-pictures pic-one">
+                    {currentSpot.SpotImages[1] ? (<img src={currentSpot.SpotImages[1].url}/>) :
+                    (<img src={sign}/>)}
+                </div>
+                <div className="spot-secondary-pictures pic-two">
+                    {currentSpot.SpotImages[2] ? (<img src={currentSpot.SpotImages[1].url}/>) : (<img src={kitchen}/>)}
+                </div>
+                <div className="spot-secondary-pictures pic-three">
+                    {currentSpot.SpotImages[3] ? (<img src={currentSpot.SpotImages[1].url}/>) : (<img src={garden}/>)}
+                </div>
+                <div className="spot-secondary-pictures pic-four">
+                    {currentSpot.SpotImages[4] ? (<img src={currentSpot.SpotImages[1].url}/>) : (<img src={library}/>)}
+                </div>
             </div>
             <div id="spot-owner-container">
-                <div>This spot is hosted by {currentSpot.Owner.firstName}</div>
-                <div>{currentSpot.city}</div>
-                <div>{currentSpot.state}</div>
+                <div id="onwner-title">This spot is hosted by {currentSpot.Owner.firstName}</div>
+                <div id="city-state-undercard">
+                    <div>{currentSpot.city},</div>
+                    <div>{currentSpot.state}</div>
+                </div>
             </div>
             <div id="spot-detail-card">
-                <div id="spot-price"><span>${currentSpot.price}</span> night</div>
-                <div>★{currentSpot.avgStarRating}</div>
-                <div>{currentSpot.numReviews}</div>
+                <div id="spot-detail-card-header">
 
-                <NavLink to={`/reviews/${spotId}/add`} id="write-review">Write a Review</NavLink>
+                    <div id="spot-price"><span>${currentSpot.price}</span> night</div>
+
+                    <div id="spot-detail-card-review-container">
+
+                    <div>★ {currentSpot.avgStarRating} </div>
+                    <div>・</div>
+                    <div>{currentSpot.numReviews} reviews</div>
+                    </div>
+
+                </div>
+
+            {/* add or edit review logic */}
+
+            {currentUser && reviewerId.includes(currentUser.id) ? (
                 <NavLink to={`/reviews/${spotId}/edit`} id="write-review">Edit Your Review</NavLink>
+            ) : (
+                <NavLink to={`/reviews/${spotId}/add`} id="write-review">Write a Review</NavLink>
+            )}
+
+
+
                 <NavLink to={`/reviews/${spotId}`} id="get-review">See All Reviews</NavLink>
+
+
+
             </div>
 
             <div id="reviews"></div>
