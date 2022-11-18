@@ -34,7 +34,7 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
 
         e.preventDefault();
         setErrors([]);
-        const response = await dispatch(sessionActions.loginUserThunk("FakeUser9", "password"))
+        const response = await dispatch(sessionActions.loginUserThunk("19Years4Bread", "VictorHugo"))
         .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
