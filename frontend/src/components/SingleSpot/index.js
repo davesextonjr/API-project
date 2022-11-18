@@ -87,11 +87,22 @@ export default function SingleSpot() {
                 </div>
             </div>
             <div id="spot-owner-container">
-                <div id="onwner-title">This spot is hosted by {currentSpot.Owner.firstName}</div>
+                <div id="onwner-title">This spot is hosted by {currentSpot.Owner.firstName}
+
+                { currentUser && currentSpot && currentUser.id === currentSpot.Owner.id &&
+                    (<div id="edit-delete-spot-container">
+
+                    <NavLink to={`/spot/edit/${spotId}`} > Edit Spot </NavLink>
+                    <button onClick={deleteHandler}>Delete</button>
+
+            </div>)}
+
+                </div>
                 <div id="city-state-undercard">
                     <div>{currentSpot.city},</div>
                     <div>{currentSpot.state}</div>
                 </div>
+
             </div>
             <div id="spot-detail-card">
                 <div id="spot-detail-card-header">
@@ -129,15 +140,9 @@ export default function SingleSpot() {
 
             </div>
 
-            <div id="reviews"></div>
+            {/* <div id="reviews"></div> */}
 
-            { currentUser && currentSpot && currentUser.id === currentSpot.Owner.id &&
-            (<div id="edit-delete-spot-container">
 
-                <NavLink to={`/spot/edit/${spotId}`} > Edit Spot </NavLink>
-                <button onClick={deleteHandler}>Delete</button>
-
-            </div>)}
 
         </div>
 

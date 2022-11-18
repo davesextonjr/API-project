@@ -105,9 +105,18 @@
 
 }
 #onwner-title{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
     font-size: large;
     font-weight: 600;
     padding-bottom: 1%;
+}
+
+#edit-delete-spot-container{
+    display: flex;
+    justify-content: space-around;
+    width: 25%;
 }
 
 #city-state-undercard{
