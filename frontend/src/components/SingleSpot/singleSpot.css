@@ -94,19 +94,25 @@
 }
 
 #spot-owner-container{
-    display: flexbox;
-    flex-direction: column;
-    width: 50%;
-    padding-top: 3%;
+    display: grid;
+        grid-template-columns: 60% 1fr;
+        grid-template-rows: max-content max-content auto;
+        grid-auto-flow: rows;
+        gap: 0px 1%;
+        grid-template-areas:
+          "host-name review-card"
+          "location review-card"
+          "description review-card";
+    width: 90%;
     margin-left: 5%;
-    padding-bottom: 2%;
-    border-bottom: lightgray solid 1px;
+    border: rgb(205, 39, 171) solid 3px;
 
 
 }
 #onwner-title{
     display: flex;
-    width: 100%;
+    grid-area: host-name;
+
     justify-content: space-between;
     font-size: large;
     font-weight: 600;
@@ -120,23 +126,24 @@
 }
 
 #city-state-undercard{
+    grid-area: location;
     display:flex;
     gap: 1%;
     font-size: small;
 }
 
 #spot-detail-card{
+    grid-area: review-card;
     border: lightgrey 1px solid;
     box-shadow: 0px 0px 12px lightgrey;
     border-radius: 4%;
     display: flex;
     flex-direction: column;
-    width: auto;
+    width: 100%;
     padding: 3%;
     margin: auto;
-    margin-left: 60%;
-    margin-right: 5%;
-    margin-top: -6%;
+    margin-top: 5%;
+
 }
 
 #spot-price span{
@@ -149,10 +156,24 @@
     justify-content: space-between;
 }
 #spot-detail-card-review-container{
+    grid-area: description;
     display: flex;
     font-size: small;
     justify-content: flex-end;
-    width: 50%;
+    width: 100%;
+}
+
+#spot-description-container{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+
+    border: red solid 3px;
+}
+
+#spot-description-container div {
+
 }
 
 /* #spot-header-rating{

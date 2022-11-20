@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 
 
-
 export default function ProfileButton ({user, setLogin, setShowModal}) {
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([])
@@ -55,38 +54,51 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
                         <div id="dropdown-username">{user.username}</div>
                         <div>{user.email}</div>
                    </div>
+                <div id="dropdown-add-spot-logout-container">
+                    <div>
 
                    <NavLink className="add-spot-container" to="/addSpot">
-                        <button id="dropdown-add-spot-button">
+                        <button className="demo-add-user-buttons" id="dropdown-add-spot-button">
                             Add A Spot
                         </button>
                     </NavLink>
+                    </div>
 
                     <div id="logout-button-container">
-                        <button id="logout-button" onClick={clickHandler}>Log Out</button>
+                        <button className="demo-add-user-buttons" id="logout-button" onClick={clickHandler}>Log Out</button>
                     </div>
+                </div>
                 </div>) : (
                     <div className="profile-dropdown">
-                        <div>
-                            <button onClick={() => {
-                                setLogin(true)
-                                setShowModal(true)
-                            }}>Log In</button>
+                        <div id="dropdown-login-signup">
+                            <div>
+                                <button id="dropdown-login-button" onClick={() => {
+                                    setLogin(true)
+                                    setShowModal(true)
+                                }}>Log In</button>
+                            </div>
+                            <div>
+                                <button onClick={() => {
+                                    setLogin(false)
+                                    setShowModal(true)
+                                }}>Sign Up</button>
+                            </div>
+                        </div>
+                      <div id="dropdown-demo-user-add-spot-container">
+
+                        <div className="hover">
+                            <button className="demo-add-user-buttons" onClick={loginDemoUser}>Demo User</button>
                         </div>
                         <div>
-                            <button onClick={() => {
-                                setLogin(false)
-                                setShowModal(true)
-                            }}>Sign Up</button>
-                        </div>
-                        <div>
-                            <button onClick={loginDemoUser}>Demo User</button>
-                        </div>
+
                         <NavLink className="add-spot-container" to="/addSpot">
-                            <button>
+                            <button
+                            className="demo-add-user-buttons">
                                 Add A Spot
                             </button>
                         </NavLink>
+                        </div>
+                      </div>
                     </div>
                 )
             )}

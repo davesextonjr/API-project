@@ -95,7 +95,7 @@ export default function SingleSpot() {
                     <NavLink to={`/spot/edit/${spotId}`} > Edit Spot </NavLink>
                     <button onClick={deleteHandler}>Delete</button>
 
-            </div>)}
+                    </div>)}
 
                 </div>
                 <div id="city-state-undercard">
@@ -103,7 +103,6 @@ export default function SingleSpot() {
                     <div>{currentSpot.state}</div>
                 </div>
 
-            </div>
             <div id="spot-detail-card">
                 <div id="spot-detail-card-header">
 
@@ -118,13 +117,7 @@ export default function SingleSpot() {
 
                 </div>
 
-            {/* add or edit review logic */}
 
-            {/* {currentUser && reviewerId.includes(currentUser.id) ? (
-                <NavLink to={`/reviews/${spotId}/edit`} id="write-review">Edit Your Review</NavLink>
-            ) : (
-                <NavLink to={`/reviews/${spotId}/add`} id="write-review">Write a Review</NavLink>
-            )} */}
 
             {currentUser && reviewerId.includes(currentUser.id) &&  <NavLink to={`/reviews/${spotId}/edit`} id="write-review">Edit Your Review</NavLink>}
 
@@ -132,7 +125,7 @@ export default function SingleSpot() {
 
             {!currentUser && (
                 <p>Please log in or sign up to leave a review</p>
-            )}
+                )}
 
                 <NavLink to={`/reviews/${spotId}`} id="get-review">See All Reviews</NavLink>
 
@@ -140,9 +133,12 @@ export default function SingleSpot() {
 
             </div>
 
-            {/* <div id="reviews"></div> */}
+             <div id="spot-description-container">
+                <div>{currentSpot.description}</div>
+             </div>
 
 
+            </div>
 
         </div>
 
