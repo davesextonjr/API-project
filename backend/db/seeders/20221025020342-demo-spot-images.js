@@ -6,13 +6,53 @@ module.exports = {
     return queryInterface.bulkInsert('SpotImages', [
       {
         spotId: 1,
-        url: "https://images.pexels.com/photos/3551230/pexels-photo-3551230.jpeg",
+        url: "https://a0.muscache.com/im/pictures/37285217-f0d5-4a56-93ae-3285ba2567b8.jpg?im_w=1440",
         preview: true
+      },
+      {
+        spotId: 1,
+        url: "https://a0.muscache.com/im/pictures/28562dce-bb6d-461c-b953-84603e6412bd.jpg?im_w=720",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "https://a0.muscache.com/im/pictures/2cd84581-f8ad-4768-ad52-e89333e02dbc.jpg?im_w=1200",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "https://a0.muscache.com/im/pictures/d1b691d4-0f78-45d2-ab2d-b45aca938569.jpg?im_w=720",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "https://a0.muscache.com/im/pictures/a5eb0717-4c93-46f0-922d-da368b4158e7.jpg?im_w=720",
+        preview: false
       },
       {
         spotId: 2,
         url: "https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg",
         preview: true
+      },
+      {
+        spotId: 2,
+        url: "https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg",
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: "https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg",
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: "https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg",
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: "https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg",
+        preview: false
       },
       {
         spotId: 3,
