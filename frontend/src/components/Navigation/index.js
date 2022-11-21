@@ -4,9 +4,10 @@ import { useState } from "react";
 import './Navigation.css'
 import ProfileButton from "./ProfileButton";
 import logo from '../../assets/NoRoomAtTheInn.png'
-import LoginForm from "../LoginFormModal/LoginForm";
+
 import SignupFormPage from "../SignupFormPage";
 import { Modal } from "../../context/Modal";
+import LoginForm from "../LoginFormModal/LoginForm";
 
 export default function Navigation({isLoaded}) {
     const sessionUser = useSelector(state => state.session.user);

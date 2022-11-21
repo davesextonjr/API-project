@@ -1,16 +1,51 @@
 
 #spot-page {
     padding-top: 120px;
+    max-width: 1148px;
+    margin: auto;
+    width: 88%;
 
 }
 #spot-header {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 98%;
     margin: auto;
     gap: 15px;
     margin-bottom: 3%;
 }
+
+#spot-header-name-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#spot-header-name{
+    font-size: x-large;
+    font-weight: 600;
+}
+
+#edit-delete-spot-container{
+    display: flex;
+    justify-content: space-between;
+
+}
+#edit-delete-spot-container button{
+    color: rgb(11, 11, 11);
+    font-weight: 600;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0);
+    width: 140px;
+    height: 47px;
+    border: none;
+    border-radius:20% / 50%;
+}
+
+#edit-delete-spot-container button:hover{
+    background-color: rgba(215, 209, 209, 0.264)
+}
+
 
 #spot-header-nav{
     display: flex;
@@ -23,17 +58,12 @@
     gap: 10px;
 }
 
-#spot-header-name{
-    font-size: x-large;
-    font-weight: 600;
-}
 
 
 #spot-picture-container {
     display: grid;
-  grid-auto-columns: 1fr;
-  grid-template-columns: 3fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: minmax(250px, 560px) minmax(140px, 280px) minmax(140px, 280px);
+  grid-template-rows: minmax(150px, 280px) minmax(150px, 280px);
   gap: 1% 1%;
   grid-template-areas:
     "main-picture picture-one picture-two"
@@ -42,11 +72,11 @@
   align-content: center;
   justify-items: center;
   align-items: center;
-    width: 90%;
-  height: 50%;
+    width: 98%;
+
   margin: auto;
   overflow: hidden;
-  border-radius: 2%;
+  border-radius: 1% / 2%;
 
 }
 #spot-default-image-container{
@@ -59,7 +89,6 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
-    grid-area: main-picture;
 }
 
 .spot-secondary-pictures img{
@@ -95,17 +124,21 @@
 
 #spot-owner-container{
     display: grid;
-        grid-template-columns: 60% 1fr;
-        grid-template-rows: max-content max-content auto;
-        grid-auto-flow: rows;
-        gap: 0px 1%;
+        grid-template-columns: 1fr minmax(200px, 400px);
+        grid-auto-rows: 35px 50px auto auto auto auto auto;
+        gap: 0px 60px;
         grid-template-areas:
           "host-name review-card"
-          "location review-card"
-          "description review-card";
-    width: 90%;
-    margin-left: 5%;
-    border: rgb(205, 39, 171) solid 3px;
+          "location  review-card"
+          "awards    review-card"
+          "insurance  .........."
+          "description  ........"
+          "amenities  .........";
+    width: 98%;
+    margin: auto;
+    margin-top: 35px;
+    overflow: hidden;
+
 
 
 }
@@ -114,25 +147,98 @@
     grid-area: host-name;
 
     justify-content: space-between;
-    font-size: large;
+    font-size: 22px;
     font-weight: 600;
-    padding-bottom: 1%;
+
 }
 
-#edit-delete-spot-container{
-    display: flex;
-    justify-content: space-around;
-    width: 25%;
-}
 
 #city-state-undercard{
     grid-area: location;
     display:flex;
-    gap: 1%;
-    font-size: small;
+    gap: 5px;
+    font-size: medium;
+    padding-bottom: 8px;
+    border-bottom: lightgrey 1px solid;
+    color: rgba(44, 42, 42, 0.712);
+}
+
+#spot-highlights-container{
+    grid-area: awards;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    border-bottom: lightgrey 1px solid;
+
+}
+
+.icons{
+    font-size: x-large;
+}
+
+.award-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.award-highlight{
+    font-weight: 600;
+}
+.award-details{
+    color: rgba(44, 42, 42, 0.712);
+}
+
+#insurance-container{
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: lightgrey 1px solid;
+    justify-content: center;
+
+}
+
+#insurance-container img{
+    height: 60px;
+    object-fit: contain;
+    width: 220px;
+    margin-left: -10px;
+    padding-top: 8px;
+
+}
+
+#insurance-container div{
+    font-weight: 300;
+    padding-top: 8px;
+}
+
+#room-surance-button{
+    margin-top: 16px;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    font-size: medium;
+    font-weight: 600;
+    text-decoration-line: underline;
+    cursor: pointer;
+    padding-bottom: 16px;
+}
+
+#spot-description-container{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    grid-area: description;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    border-bottom: lightgrey 1px solid;
 }
 
 #spot-detail-card{
+    position: sticky;
     grid-area: review-card;
     border: lightgrey 1px solid;
     box-shadow: 0px 0px 12px lightgrey;
@@ -156,25 +262,28 @@
     justify-content: space-between;
 }
 #spot-detail-card-review-container{
-    grid-area: description;
+
     display: flex;
     font-size: small;
     justify-content: flex-end;
     width: 100%;
 }
 
-#spot-description-container{
+#place-offering-snapshot-container{
+    grid-area: amenities;
     display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-
-
-    border: red solid 3px;
+    flex-direction: column;
 }
 
-#spot-description-container div {
-
+.spot-offering-list-container{
+    display: flex;
 }
+
+.spot-offering{
+    display: flex;
+}
+
+
 
 /* #spot-header-rating{
 

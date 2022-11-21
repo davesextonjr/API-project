@@ -6,7 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert('SpotImages', [
       {
         spotId: 1,
-        url: "https://a0.muscache.com/im/pictures/37285217-f0d5-4a56-93ae-3285ba2567b8.jpg?im_w=1440",
+        url: "https://images.pexels.com/photos/3551230/pexels-photo-3551230.jpeg",
         preview: true
       },
       {
