@@ -4,3 +4,37 @@
     box-sizing: border-box;
     margin: 0;
 }
+
+button.red, form button {
+    background-color: rgb(234, 12, 53);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0 0 0;
+
+}
+
+form {
+display: flex;
+flex-direction: column;
+gap: 16px;
+padding: 24px;
+
+}
+
+form input, form textarea {
+    padding: 16px;
+    border-radius: 4px;
+    border: grey 1px solid;
+    font-size: 18px;
+}
+
+form textarea {
+    resize: none;
+    height: 400px;
+}
+
+form label {
+    margin-bottom: -12px;
+}

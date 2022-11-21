@@ -16,9 +16,7 @@
     width: 100%;
     padding: 3%;
 }
-#welcome-back{
+#welcome-back {
+    margin-top: 16px;
     font-size: x-large;
-    width: 94%;
-    margin-left: 3%;
-    margin-right: 3%;
 }

@@ -52,62 +52,55 @@ export default function SignupFormPage({ setShowModel }) {
 
     return (
         <form id="signup-form" onSubmit={handleSubmit}>
-            <div id="signup-form-header">
+            <div className="form-header">
                 <p>Sign up</p>
             </div>
-            <div id="get-started"> Let's Get Started</div>
 
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>
-            <label htmlFor="signup-first-name">First Name
+            <label htmlFor="signup-first-name">First Name</label>
                 <input
                     id="signup-first-name"
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="signup-last-name">Last Name
+            <label htmlFor="signup-last-name">Last Name</label>
                 <input
                     id="signup-last-name"
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="signup-email">Email
+            <label htmlFor="signup-email">Email</label>
                 <input
                     id="signup-email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="signup-username">Username
+            <label htmlFor="signup-username">Username</label>
                 <input
                     id="signup-username"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="signup-password">Password
+            <label htmlFor="signup-password">Password</label>
                 <input
                     id="signup-password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="signup-confrim-password">Password
+            <label htmlFor="signup-confrim-password">Password</label>
                 <input
                     id="signup-confirm-password"
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required />
-            </label>
             <button type="submit">Sign Up</button>
 
 

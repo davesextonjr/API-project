@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { setSpot } from "./singleSpot";
 
 //actions
     // action variables
@@ -72,6 +73,7 @@ export const editSpotThunk = ({spotId, address, city, state, country, lat, lng, 
         return response.json()
     }else {
     const newSpot = await response.json();
+    dispatch(setSpot(newSpot));
     dispatch(addSpot(newSpot));
     return newSpot;
     }

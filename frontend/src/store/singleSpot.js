@@ -1,17 +1,17 @@
 import { csrfFetch } from "./csrf";
 
 //actions
-    // action variables
-    const SET_SPOT ='singleSpot/SET_SPOT'
-    const RESET = 'singleSpot/RESET'
+// action variables
+const SET_SPOT = 'singleSpot/SET_SPOT'
+const RESET = 'singleSpot/RESET'
 
-const setSpot = spot => ({
+export const setSpot = spot => ({
     type: SET_SPOT,
     spot
 })
 
-export const resetSingleSpotState = () =>{
-    return{
+export const resetSingleSpotState = () => {
+    return {
         type: RESET
     }
 }
@@ -19,7 +19,7 @@ export const resetSingleSpotState = () =>{
 
 
 //thunk
-export const findSpotById =  spotId => async dispatch => {
+export const findSpotById = spotId => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`)
     if (response.ok) {
         const spot = await response.json();
@@ -28,10 +28,11 @@ export const findSpotById =  spotId => async dispatch => {
 }
 
 export default function singleSpotReducer(state = {}, action) {
-    switch(action.type) {
+    switch (action.type) {
         case SET_SPOT: {
-            const newState = {...state};
-            newState[action.spot.id] = action.spot;
+            const newState = { ...state  };
+            newState[action.spot.id] =
+                { ...state[action.spot.id], ...action.spot }
             return newState;
         }
         case RESET: {

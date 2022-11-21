@@ -90,7 +90,6 @@ export default function reviewsReducer(state = {}, action) {
                 allReviews[review.id] = review
             });
             return {
-                ...state,
                 ...allReviews
             };
         case ADD_REVIEW: {

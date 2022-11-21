@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { addReviewThunk } from "../../store/reviews";
 import './addReviewForm.css'
 
 
-export default function AddReviewForm() {
-    const {spotId} = useParams();
+export default function AddReviewForm({ onComplete }) {
+    const { spotId } = useParams();
     const dispatch = useDispatch();
-    const history = useHistory();
     const currentUserObject = useSelector(state => state.session)
 
     const [errors, setErrors] = useState([]);
@@ -29,12 +28,12 @@ export default function AddReviewForm() {
         }
 
         const returnReview = await dispatch(addReviewThunk(reviewInfo))
-        .catch(async (res) => {
-            const data = await res.json();
-            if(data && data.errors) setErrors(data.errors);
-        })
-        if(errors.length) return alert('something went wrong');
-        history.push(`/reviews/${returnReview.spotId}`)
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            })
+        if (errors.length) return alert('something went wrong');
+        onComplete();
     }
 
     return (
@@ -42,22 +41,22 @@ export default function AddReviewForm() {
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>
-            <label htmlFor="review-stars">How was your stay overall?
-                <input
-                    id="review-stars"
-                    type="text"
-                    value={stars}
-                    onChange={(e) => setStars(e.target.value)}
-                    required />
-            </label>
-            <label htmlFor="add-review-body">Descrition
-                <textarea
-                    id="add-review-body"
+            <label htmlFor="review-stars">How was your stay overall?</label>
+            <input
+                id="review-stars"
+                type="text"
+                value={stars}
+                onChange={(e) => setStars(e.target.value)}
+                required />
 
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    required />
-            </label>
+            <label htmlFor="add-review-body">Descrition </label>
+            <textarea
+                id="add-review-body"
+
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+                required />
+
             <button type="submit">Submit Review</button>
         </form>
     )

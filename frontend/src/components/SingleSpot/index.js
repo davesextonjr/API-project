@@ -14,6 +14,8 @@ import ReviewPage from "../ReviewPage";
 import EditSpotForm from "../EditSpotForm";
 import roomSuranceLogo from "../../assets/roomsurance-logo.png"
 import RoomSurance from "../RoomSuranceInfo";
+import AddReviewForm from "../AddReviewForm";
+import EditReviewForm from "../EditReviewForm";
 
 
 export default function SingleSpot() {
@@ -23,35 +25,39 @@ export default function SingleSpot() {
     const [showAllReviewsModal, setShowAllReviewsModal] = useState(false);
     const [showEditSpotModal, setShowEditSpotModal] = useState(false);
     const [showRoomsuranceModal, setShowRoomsuranceModal] = useState(false);
+    const [showAuthorReviewModal, setShowAuthorReviewModal] = useState(false);
 
     useEffect(() => {
         dispatch(findSpotById(spotId))
         dispatch(getReviewsThunk(spotId))
-    },[spotId])
+    }, [spotId])
 
     const currentSpot = useSelector(state => state.singleSpot[+spotId])
     console.log(currentSpot)
 
     const reviewsArray = useSelector(state => Object.values(state.reviews));
+    const latestReview = reviewsArray[reviewsArray.length - 1]
+    console.log("latest review", latestReview)
 
     const reviewerId = reviewsArray.map(reviewObj => reviewObj.userId)
 
-    const currentUser= useSelector(state => state.session.user)
 
-    if (currentUser && currentSpot) console.log("Owner Check: ", currentUser.id, currentSpot.Owner.id, currentUser.id === currentSpot.Owner.id)
+    const currentUser = useSelector(state => state.session.user)
+
+    // if (currentUser && currentSpot) console.log("Owner Check: ", currentUser.id, currentSpot.Owner.id, currentUser.id === currentSpot.Owner.id)
 
 
-
-    if (currentUser) console.log("current user has a review", reviewerId.includes(currentUser.id))
+    const userHasReviewed = currentUser && reviewerId.includes(currentUser.id)
+    // if (currentUser) console.log("current user has a review", reviewerId.includes(currentUser.id))
     // console.log("Array of reviewer ids", reviewerId)
 
-    if(! currentSpot) {
+    if (!currentSpot) {
         return <div>No Spot Selcted</div>
     }
 
     const deleteHandler = (e) => {
         e.preventDefault()
-        if(window.confirm("Are you sure you want to delete this spot?")) {
+        if (window.confirm("Are you sure you want to delete this spot?")) {
             dispatch(deleteSpotThunk(spotId))
             dispatch(resetSingleSpotState())
             history.push('/')
@@ -63,29 +69,29 @@ export default function SingleSpot() {
         <div id="spot-page">
             {/* header */}
             <div id="spot-header">
-                 <div id="spot-header-name-container">
+                <div id="spot-header-name-container">
                     <div id="spot-header-name" >{currentSpot.name}</div>
-                    { currentUser && currentSpot && currentUser.id === currentSpot.Owner.id &&
-                    (<div id="edit-delete-spot-container">
+                    {currentUser && currentSpot && currentUser.id === currentSpot.Owner.id &&
+                        (<div id="edit-delete-spot-container">
 
-                        <button onClick={() => setShowEditSpotModal(true)}  id="edit-spot-button">Edit Your Spot</button>
-                        {showEditSpotModal && <Modal onClose={() => setShowEditSpotModal(false)}>
-                            <EditSpotForm />
-                        </Modal>}
-                        <button onClick={deleteHandler}>Delete Your Spot</button>
+                            <button onClick={() => setShowEditSpotModal(true)} id="edit-spot-button">Edit Your Spot</button>
+                            {showEditSpotModal && <Modal onClose={() => setShowEditSpotModal(false)}>
+                                <EditSpotForm onComplete={() => setShowEditSpotModal(false)}/>
+                            </Modal>}
+                            <button onClick={deleteHandler}>Delete Your Spot</button>
 
-                    </div>)}
-                 </div>
-                 <div id="spot-header-nav">
+                        </div>)}
+                </div>
+                <div id="spot-header-nav">
                     <div id="spot-header-nav-left">
-                       <div id="spot-header-rating" >★ {currentSpot.avgStarRating}</div>
-                       <div id="spot-header-review-number">{currentSpot.numReviews} reviews</div>
-                       <div>{currentSpot.city}, {currentSpot.state}, {currentSpot.country} </div>
+                        <div id="spot-header-rating" >★ {currentSpot.avgStarRating}</div>
+                        <div id="spot-header-review-number">{currentSpot.numReviews} reviews</div>
+                        <div>{currentSpot.city}, {currentSpot.state}, {currentSpot.country} </div>
                     </div>
                     <div id="spot-header-nav-right">
                         <div>Share</div>
                     </div>
-                 </div>
+                </div>
             </div>
             {/* pictures */}
             <div id="spot-picture-container">
@@ -93,17 +99,17 @@ export default function SingleSpot() {
                     <img id="spot-default-image" src={currentSpot.SpotImages[0].url} />
                 </div>
                 <div className="spot-secondary-pictures pic-one">
-                    {currentSpot.SpotImages[1] ? (<img src={currentSpot.SpotImages[1].url}/>) :
-                    (<img src={sign}/>)}
+                    {currentSpot.SpotImages[1] ? (<img src={currentSpot.SpotImages[1].url} />) :
+                        (<img src={sign} />)}
                 </div>
                 <div className="spot-secondary-pictures pic-two">
-                    {currentSpot.SpotImages[2] ? (<img src={currentSpot.SpotImages[1].url}/>) : (<img src={kitchen}/>)}
+                    {currentSpot.SpotImages[2] ? (<img src={currentSpot.SpotImages[1].url} />) : (<img src={kitchen} />)}
                 </div>
                 <div className="spot-secondary-pictures pic-three">
-                    {currentSpot.SpotImages[3] ? (<img src={currentSpot.SpotImages[1].url}/>) : (<img src={garden}/>)}
+                    {currentSpot.SpotImages[3] ? (<img src={currentSpot.SpotImages[1].url} />) : (<img src={garden} />)}
                 </div>
                 <div className="spot-secondary-pictures pic-four">
-                    {currentSpot.SpotImages[4] ? (<img src={currentSpot.SpotImages[1].url}/>) : (<img src={library}/>)}
+                    {currentSpot.SpotImages[4] ? (<img src={currentSpot.SpotImages[1].url} />) : (<img src={library} />)}
                 </div>
             </div>
             <div id="spot-owner-container">
@@ -117,95 +123,102 @@ export default function SingleSpot() {
                     <div>{" "}{currentSpot.state}</div>
                 </div>
 
-            <div id="spot-detail-card">
-                <div id="spot-detail-card-header">
+                <div id="spot-detail-card">
+                    <div id="spot-detail-card-header">
 
-                    <div id="spot-price"><span>${currentSpot.price}</span> night</div>
-
-                    <div id="spot-detail-card-review-container">
-
-                    <div>★ {currentSpot.avgStarRating} </div>
-                    <div>・</div>
-                    <div>{currentSpot.numReviews} reviews</div>
+                        <div id="spot-price"><span>${currentSpot.price}</span> night</div>
+                        <div id="spot-detail-card-review-container">
+                            <div>★ {currentSpot.avgStarRating} </div>
+                            <div>・</div>
+                            <div>{currentSpot.numReviews} reviews</div>
+                        </div>
                     </div>
+
+                    {latestReview && <div id="display-review-container">
+                        <div id="latest-header">Latest Review</div>
+                        <div>{latestReview.review}</div>
+                        <div>- {latestReview.User.firstName}</div>
+                    </div>}
+
+                    {/* { &&  <NavLink to={`/reviews/${spotId}/edit`} id="write-review">Edit Your Review</NavLink>} */}
+
+
+                    {currentUser && currentUser.id !== currentSpot.Owner.id && <button className="red" onClick={() => setShowAuthorReviewModal(true)} id="write-review">
+                        {userHasReviewed ? (<>Edit Review</>) : (<>Write a Review</>)}
+                    </button>}
+                    {showAuthorReviewModal && <Modal onClose={() => setShowAuthorReviewModal(false)}>
+                        {userHasReviewed ? <EditReviewForm onComplete={() => setShowAuthorReviewModal(false)} /> : <AddReviewForm onComplete={() => setShowAuthorReviewModal(false)} />}
+                    </Modal>}
+
+                    {!currentUser && (
+                        <p>Please log in or sign up to leave a review</p>
+                    )}
+
+                    <button className="red" onClick={() => setShowAllReviewsModal(true)} id="get-review">See All Reviews</button>
+                    {showAllReviewsModal && <Modal onClose={() => setShowAllReviewsModal(false)}>
+                        <ReviewPage />
+                    </Modal>}
+
+
 
                 </div>
 
 
-
-            {currentUser && reviewerId.includes(currentUser.id) &&  <NavLink to={`/reviews/${spotId}/edit`} id="write-review">Edit Your Review</NavLink>}
-
-            {currentUser && currentUser.id !== currentSpot.Owner.id &&!(reviewerId.includes(currentUser.id)) && <NavLink to={`/reviews/${spotId}/add`} id="write-review">Write a Review</NavLink>}
-
-            {!currentUser && (
-                <p>Please log in or sign up to leave a review</p>
-                )}
-
-                <button onClick={() => setShowAllReviewsModal(true)}  id="get-review">See All Reviews</button>
-                {showAllReviewsModal && <Modal onClose={() => setShowAllReviewsModal(false)}>
-                    <ReviewPage />
-                </Modal>}
-
-
-
-            </div>
-
-
-            <div id="spot-highlights-container">
-                <i className="fa-solid fa-medal icons">
-                </i>
-                <div className="award-container">
-                    <div className="award-highlight">{currentSpot.name}'s awards</div>
-                    <div className="award-details">
-                        Coming soon! This spot will be used to display some of the highlights that make {currentSpot.Owner.firstName}'s property stand out.
+                <div id="spot-highlights-container">
+                    <i className="fa-solid fa-medal icons">
+                    </i>
+                    <div className="award-container">
+                        <div className="award-highlight">{currentSpot.name}'s awards</div>
+                        <div className="award-details">
+                            Coming soon! This spot will be used to display some of the highlights that make {currentSpot.Owner.firstName}'s property stand out.
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="insurance-container">
-                <img src={roomSuranceLogo} />
-                <div>
-                    Nothing's worse than not having a place to stay. Every booking comes with protection from the unexpected. Book without worrying about a host canceling, inaccurate spot details, and so much more.
+                <div id="insurance-container">
+                    <img src={roomSuranceLogo} />
+                    <div>
+                        Nothing's worse than not having a place to stay. Every booking comes with protection from the unexpected. Book without worrying about a host canceling, inaccurate spot details, and so much more.
+                    </div>
+                    <button onClick={() => setShowRoomsuranceModal(true)} id="room-surance-button">See more details</button>
+                    {showRoomsuranceModal && <Modal cssClass='roomsuranceModal' onClose={() => setShowRoomsuranceModal(false)}>
+                        <RoomSurance />
+                    </Modal>}
+
+
                 </div>
-                <button onClick={() => setShowRoomsuranceModal(true)}  id="room-surance-button">See more details</button>
-                {showRoomsuranceModal && <Modal cssClass='roomsuranceModal' onClose={() => setShowRoomsuranceModal(false)}>
-                    <RoomSurance />
-                </Modal>}
 
+                <div id="spot-description-container">
+                    <div>{currentSpot.description}</div>
+                </div>
 
-            </div>
-
-             <div id="spot-description-container">
-                <div>{currentSpot.description}</div>
-             </div>
-
-            <div id="place-offering-snapshot-container">
-                <div id="offering-header">All our spots offer</div>
-                <div className="spot-offering-list-container">
-                    <div className="spot-offering">
-                        <i className="fa-solid fa-mug-hot"></i>
-                        <p className="offering-lable">Premium Coffe</p>
-                    </div>
-                    <div className="spot-offering">
-                        <i class="fa-solid fa-book-journal-whills"></i>
-                        <p className="offering-lable">Curated Library</p>
-                    </div>
-                    <div className="spot-offering">
-                        <i class="fa-regular fa-map"></i>
-                        <p className="offering-lable">Guide to Hidden Gems</p>
-                    </div>
-                    <div className="spot-offering">
-                        <i class="fa-solid fa-stamp"></i>
-                        <p className="offering-lable">One-of-a-Kind Stamp</p>
-                    </div>
-                    <div className="spot-offering">
-                        <i class="fa-solid fa-guitar"></i>
-                        <p className="offering-lable">Ukulele Loan and Lessons</p>
-                    </div>
-                    <div className="spot-offering">
-                        <i class="fa-solid fa-kitchen-set"></i>
-                        <p className="offering-lable">Local Flavor Recipies and Ingrediants</p>
-                    </div>
+                <div id="place-offering-snapshot-container">
+                    <div id="offering-header">All our spots offer:</div>
+                    <div className="spot-offering-list-container">
+                        <div className="spot-offering">
+                            <i className="fa-solid fa-mug-hot"></i>
+                            <p className="offering-lable">Premium Coffe</p>
+                        </div>
+                        <div className="spot-offering">
+                            <i class="fa-solid fa-book-journal-whills"></i>
+                            <p className="offering-lable">Curated Library</p>
+                        </div>
+                        <div className="spot-offering">
+                            <i class="fa-regular fa-map"></i>
+                            <p className="offering-lable">Guide to Hidden Gems</p>
+                        </div>
+                        <div className="spot-offering">
+                            <i class="fa-solid fa-stamp"></i>
+                            <p className="offering-lable">One-of-a-Kind Stamp</p>
+                        </div>
+                        <div className="spot-offering">
+                            <i class="fa-solid fa-guitar"></i>
+                            <p className="offering-lable">Ukulele Loan and Lessons</p>
+                        </div>
+                        <div className="spot-offering">
+                            <i class="fa-solid fa-kitchen-set"></i>
+                            <p className="offering-lable">Local Flavor Recipies and Ingrediants</p>
+                        </div>
                     </div>
                 </div>
 

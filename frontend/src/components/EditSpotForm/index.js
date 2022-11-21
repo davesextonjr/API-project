@@ -8,10 +8,10 @@ import './editSpotForm.css'
 
 
 
-export default function EditSpotForm() {
+export default function EditSpotForm({ onComplete }) {
     const dispatch = useDispatch();
     const history = useHistory()
-    const {spotId} = useParams()
+    const { spotId } = useParams()
     const sessionUser = useSelector(state => state.session.user);
     const currentSpot = useSelector(state => state.singleSpot[spotId])
 
@@ -56,12 +56,12 @@ export default function EditSpotForm() {
         e.preventDefault();
         setErrors([]);
         const returnSpot = await dispatch(editSpotThunk(updatedSpot))
-        .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-        });
-        if(errors.length) return alert("something went wrong");
-        history.push(`/spots/${returnSpot.id}`)
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            });
+        if (errors.length) return alert("something went wrong");
+        onComplete()
     }
 
     return (
@@ -69,62 +69,55 @@ export default function EditSpotForm() {
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>
-            <label htmlFor="update-address">Address
-                <input
-                    id="update-address"
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAdress(e.target.value)}
-                    required />
-            </label>
-            <label htmlFor="update-city">City
-                <input
-                    id="update-city"
-                    type="text"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    required />
-            </label>
-            <label htmlFor="update-state">State
-                <input
-                    id="update-state"
-                    type="text"
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
-                    required />
-            </label>
-            <label htmlFor="update-country">Country
-                <input
-                    id="update-country"
-                    type="text"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    required />
-            </label>
-            <label htmlFor="update-name">Spot Name
-                <input
-                    id="update-name"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required />
-            </label>
-            <label htmlFor="udate-description">Descrition
-                <textarea
-                    id="udate-description"
+            <label htmlFor="update-address">Address</label>
+            <input
+                id="update-address"
+                type="text"
+                value={address}
+                onChange={(e) => setAdress(e.target.value)}
+                required />
+            <label htmlFor="update-city">City</label>
+            <input
+                id="update-city"
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                required />
+            <label htmlFor="update-state">State </label>
+            <input
+                id="update-state"
+                type="text"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                required />
+            <label htmlFor="update-country">Country</label>
+            <input
+                id="update-country"
+                type="text"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                required />
+            <label htmlFor="update-name">Spot Name</label>
+            <input
+                id="update-name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required />
+            <label htmlFor="udate-description">Descrition</label>
+            <textarea
+                id="udate-description"
 
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required />
-            </label>
-            <label htmlFor="udate-price">Price
-                <input
-                    id="update-price"
-                    type="text"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    required />
-            </label>
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required />
+            <label htmlFor="udate-price">Price</label>
+            <input
+                id="update-price"
+                type="text"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required />
             <button type="submit">Update Spot</button>
 
 

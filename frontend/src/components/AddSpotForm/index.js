@@ -71,63 +71,57 @@ export default function AddSpotForm() {
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>
-            <label htmlFor="spot-address">Address
+            <label htmlFor="spot-address">Address</label>
                 <input
                     id="spot-address"
                     type="text"
                     value={address}
                     onChange={(e) => setAdress(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="spot-city">City
+
+            <label htmlFor="spot-city">City</label>
                 <input
                     id="spot-city"
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="spot-state">State
+            <label htmlFor="spot-state">State</label>
                 <input
                     id="spot-state"
                     type="text"
                     value={state}
                     onChange={(e) => setState(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="spot-country">Country
+            <label htmlFor="spot-country">Country</label>
                 <input
                     id="spot-country"
                     type="text"
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="spot-name">Spot Name
+            <label htmlFor="spot-name">Spot Name</label>
                 <input
                     id="spot-name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="spot-description">Descrition
+            <label htmlFor="spot-description">Descrition</label>
                 <textarea
                     id="spot-description"
 
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="spot-price">Price
+            <label htmlFor="spot-price">Price</label>
                 <input
                     id="spot-price"
                     type="text"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="spot-url">Your spot will look better with an image. Enter one now or come back to it soon.
+            <label htmlFor="spot-url">Your spot will look better with an image. Enter one now or come back to it soon.</label>
                 <input
                     id="spot-url"
                     type='url'
@@ -137,7 +131,6 @@ export default function AddSpotForm() {
                     onChange={(e) => setUrl(e.target.value)}
                     required
                     ></input>
-            </label>
 
 
             <button type="submit">Add Spot</button>

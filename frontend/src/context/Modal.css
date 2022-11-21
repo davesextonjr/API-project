@@ -22,12 +22,11 @@
 
   .modal-content {
     position: absolute;
-
+    max-height: 90%;
     background-color:rgb(255, 255, 255);
     width: 550px;
-    height: 690px;
-    border-radius: 2%;
-    overflow: hidden;
+    border-radius: 16px;
+    overflow: scroll;
     position: relative;
   }
 
@@ -44,6 +43,7 @@
     background-color: transparent;
     border: none;
     position: absolute;
+
     top: 10px;
     left: 10px;
     color: rgb(107, 102, 102);

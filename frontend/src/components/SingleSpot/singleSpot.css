@@ -237,51 +237,82 @@
     border-bottom: lightgrey 1px solid;
 }
 
+#place-offering-snapshot-container{
+    grid-area: amenities;
+    display: flex;
+    /* border: red 3px solid; */
+    flex-direction: column;
+    margin-top: 32px;
+    margin-bottom: 64px;
+}
+
+#offering-header{
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.spot-offering-list-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+}
+
+.spot-offering{
+    display: flex;
+    width: 45%;
+    gap: 16px;
+}
+
 #spot-detail-card{
     position: sticky;
     grid-area: review-card;
     border: lightgrey 1px solid;
     box-shadow: 0px 0px 12px lightgrey;
-    border-radius: 4%;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 3%;
+    padding: 5%;
     margin: auto;
     margin-top: 5%;
 
-}
-
-#spot-price span{
-    font-size: larger;
-    font-weight: 600;
 }
 
 #spot-detail-card-header{
     display: flex;
     justify-content: space-between;
 }
-#spot-detail-card-review-container{
 
+#spot-price{
+    width: 100%;
+}
+
+#spot-price span{
+font-size: larger;
+font-weight: 600;
+}
+
+
+#spot-detail-card-review-container{
+    margin-top: 22px;
     display: flex;
     font-size: small;
     justify-content: flex-end;
     width: 100%;
 }
-
-#place-offering-snapshot-container{
-    grid-area: amenities;
-    display: flex;
-    flex-direction: column;
+#display-review-container{
+    border: lightgray 1px solid;
+    padding: 10px;
+    border-radius:  10px;
+    padding-bottom: 32px;
+    margin-bottom: 16px;
+}
+#latest-header{
+    font-weight: 600;
+    padding-bottom: 16px;
 }
 
-.spot-offering-list-container{
-    display: flex;
-}
-
-.spot-offering{
-    display: flex;
-}
 
 
 

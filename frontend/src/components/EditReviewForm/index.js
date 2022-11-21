@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { deleteReviewThunk, editReviewThunk } from "../../store/reviews";
 import "./editReviewForm.css";
 
-export default function EditReviewForm() {
+export default function EditReviewForm({onComplete}) {
     const {spotId} = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -23,7 +23,7 @@ export default function EditReviewForm() {
         e.preventDefault();
         if(window.confirm("Are you sure you want to delete your review?")) {
             dispatch(deleteReviewThunk(currentReview.id))
-            history.push(`/spots/${spotId}`)
+            onComplete();
         }
     }
 
@@ -47,7 +47,7 @@ export default function EditReviewForm() {
             if(data && data.errors) setErrors(data.errors);
         })
         if(errors.length) return alert('something went wrong');
-        history.push(`/reviews/${returnReview.spotId}`)
+        onComplete();
     }
 
     return (
@@ -55,22 +55,20 @@ export default function EditReviewForm() {
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>
-            <label htmlFor="edit-review-stars">How was your stay overall?
+            <label htmlFor="edit-review-stars">How was your stay overall?</label>
                 <input
                     id="edit-review-stars"
                     type="text"
                     value={stars}
                     onChange={(e) => setStars(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="edit-review-body">Descrition
+            <label htmlFor="edit-review-body">Descrition</label>
                 <textarea
                     id="edit-review-body"
 
                     value={review}
                     onChange={(e) => setReview(e.target.value)}
                     required />
-            </label>
             <button type="submit">Update Review</button>
             <button onClick={handleDeleteReview} id="delete-review">Delete Your Review</button>
         </form>
