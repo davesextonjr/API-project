@@ -88,9 +88,9 @@ export default function SingleSpot() {
                         <div id="spot-header-review-number">{currentSpot.numReviews} reviews</div>
                         <div>{currentSpot.city}, {currentSpot.state}, {currentSpot.country} </div>
                     </div>
-                    <div id="spot-header-nav-right">
+                    {/* <div id="spot-header-nav-right">
                         <div>Share</div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             {/* pictures */}
