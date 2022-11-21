@@ -26,29 +26,27 @@ export default function LoginForm({ setShowModal }) {
 
     return (
         <form id="login-form" onSubmit={handleSubmit}>
-            <div id="login-form-header">
+            <div className="form-header">
                 <p>Please log in</p>
             </div>
             <div id="welcome-back"> Welcome Back</div>
             <ul>
                 {errors.map((err) => <li key={err}>{err}</li>)}
             </ul>
-            <label htmlFor="login-credential">Username or Email
+            <label htmlFor="login-credential">Username or Email</label>
                 <input
                     id="login-credential"
                     type="text"
                     value={credential}
                     onChange={(e) => setCredential(e.target.value)}
                     required />
-            </label>
-            <label htmlFor="login-password">Password
+            <label htmlFor="login-password">Password</label>
                 <input
                     id="login-password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required />
-            </label>
             <button type="submit">Login</button>
 
 
