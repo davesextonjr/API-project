@@ -30,7 +30,9 @@
     position: relative;
   }
 
-  .modal-content.roomsuranceModal{
+  .modal-content.roomsuranceModal
+
+  {
     width: 90%;
     height: 100%;
     max-height: 550px;

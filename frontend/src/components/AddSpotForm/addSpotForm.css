@@ -13,3 +13,16 @@
     max-width: 800px;
     margin: auto;
 }
+
+#no-user-add-spot-header{
+    display: flex;
+    flex-direction: column;
+    font-size: x-large;
+    align-items: center;
+
+}
+
+.body{
+    font-size: large;
+    margin-top: 16px;
+}

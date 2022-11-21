@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addSpotThunk } from "../../store/spots";
 import { Redirect, useHistory } from "react-router-dom";
 import './addSpotForm.css'
+import logo from "../../assets/NoRoomAtTheInn.png"
 
 
 
@@ -28,10 +29,11 @@ export default function AddSpotForm() {
     if (!sessionUser) return (
         <div id="no-user-add-spot-container">
             <div id="no-user-add-spot-header">
+                <img src={logo} alt="site logo" />
                 <div>What could you do</div>
                 <div>With a little extra cash?</div>
             </div>
-            <div> Login or signup to begin exploring your earning potential!</div>
+            <div className="body"> Login or signup to begin exploring your earning potential!</div>
         </div>
     )
 

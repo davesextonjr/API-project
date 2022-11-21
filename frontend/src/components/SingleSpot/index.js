@@ -27,10 +27,11 @@ export default function SingleSpot() {
     const [showRoomsuranceModal, setShowRoomsuranceModal] = useState(false);
     const [showAuthorReviewModal, setShowAuthorReviewModal] = useState(false);
 
+
     useEffect(() => {
         dispatch(findSpotById(spotId))
         dispatch(getReviewsThunk(spotId))
-    }, [spotId])
+    }, [spotId, showAuthorReviewModal])
 
     const currentSpot = useSelector(state => state.singleSpot[+spotId])
     console.log(currentSpot)
@@ -135,9 +136,9 @@ export default function SingleSpot() {
                     </div>
 
                     {latestReview && <div id="display-review-container">
-                        <div id="latest-header">Latest Review</div>
+                        <div id="latest-header">What people are saying:</div>
                         <div>{latestReview.review}</div>
-                        <div>- {latestReview.User.firstName}</div>
+                        <div>- {latestReview.stars} stars</div>
                     </div>}
 
                     {/* { &&  <NavLink to={`/reviews/${spotId}/edit`} id="write-review">Edit Your Review</NavLink>} */}

@@ -1,6 +1,30 @@
-#here {
-    padding-top: 300px;
+.review-modal{
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    max-width: 1000px;
 }
-#no-reviews {
-    padding-top: 300px;
+
+.header{
+    font-size: x-large;
+    text-align: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: grey 1px solid;
+    width: 100%;
+
+
+
+}
+.review-card{
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.stars{
+    font-weight: 600;
+
 }

@@ -23,12 +23,13 @@ export default function ReviewPage() {
     } //need to refactor this check
 
     return (
-        <div id="here">
+        <div className="review-modal">
+            <div className="header">Reviews</div>
             {reviews.map(review => (
                 <div key={`review-${review.id}`} className="review-card">
-                    <div>{review.stars}</div>
-                    <div>{review.review}</div>
-                    <div>{review.User.firstName}</div>
+                    <div className="stars">{review.stars} Stars</div>
+                    <div className="reviews">{review.review}</div>
+                    <div className="first-name">- {review.User.firstName}</div>
                 </div>
             ))}
         </div>
