@@ -22,14 +22,15 @@ export function ModalProvider({ children }) {
   );
 }
 
-export function Modal({ onClose, children }) {
+export function Modal({ onClose, children, cssClass}) {
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
-
+  const className = `modal-content ${cssClass}`
   return ReactDOM.createPortal(
-    <div id="modal">
-      <div id="modal-background" onClick={onClose} />
-      <div id="modal-content">
+    <div className="modal" >
+      <div className="modal-background" onClick={onClose} />
+      <div className={className} >
+        <button className="close" onClick={onClose}>x</button>
         {children}
       </div>
     </div>,
