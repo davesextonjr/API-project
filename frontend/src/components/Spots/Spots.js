@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import './spots.css'
-import logo from '../../assets/NoRoomAtTheInn.png'
 
 
 export default function SpotsPage() {
+    const logo = '/assets/NoRoomAtTheInn.png'
 
     const spots = useSelector(state => {
         return Object.values(state.spots)
