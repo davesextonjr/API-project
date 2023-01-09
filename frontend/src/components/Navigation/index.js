@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import './Navigation.css'
 import ProfileButton from "./ProfileButton";
-import logo from '../../assets/NoRoomAtTheInn.png'
 
 import SignupFormPage from "../SignupFormPage";
 import { Modal } from "../../context/Modal";
@@ -14,6 +13,7 @@ export default function Navigation({isLoaded}) {
     const [showModal, setShowModal] = useState(false)
     const [login, setLogin] = useState(true)
 
+    const logo = '/assets/NoRoomAtTheInn.png'
 
     return (
 

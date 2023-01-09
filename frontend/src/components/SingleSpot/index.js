@@ -5,14 +5,9 @@ import { getReviewsThunk } from "../../store/reviews";
 import { findSpotById, resetSingleSpotState } from "../../store/singleSpot";
 import { deleteSpotThunk } from "../../store/spots";
 import './singleSpot.css'
-import sign from '../../assets/lets-be-cozy.jpeg'
-import kitchen from '../../assets/rustic-kitchen.jpeg'
-import garden from "../../assets/indoor-garden.jpeg"
-import library from "../../assets/overstuffed chair.jpeg"
 import { Modal } from "../../context/Modal";
 import ReviewPage from "../ReviewPage";
 import EditSpotForm from "../EditSpotForm";
-import roomSuranceLogo from "../../assets/roomsurance-logo.png"
 import RoomSurance from "../RoomSuranceInfo";
 import AddReviewForm from "../AddReviewForm";
 import EditReviewForm from "../EditReviewForm";
@@ -26,6 +21,11 @@ export default function SingleSpot() {
     const [showEditSpotModal, setShowEditSpotModal] = useState(false);
     const [showRoomsuranceModal, setShowRoomsuranceModal] = useState(false);
     const [showAuthorReviewModal, setShowAuthorReviewModal] = useState(false);
+    const roomSuranceLogo = "/assets/roomsurance-logo.png"
+    const sign = '/assets/lets-be-cozy.jpeg'
+    const kitchen = '/assets/rustic-kitchen.jpeg'
+    const garden = "/assets/indoor-garden.jpeg"
+    const library = "/assets/overstuffed chair.jpeg"
 
 
     useEffect(() => {

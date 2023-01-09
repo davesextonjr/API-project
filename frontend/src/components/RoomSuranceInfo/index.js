@@ -1,7 +1,7 @@
-import roomSuranceLogo from "../../assets/roomsurance-logo.png";
 import './roomsurance.css'
 
 export default function RoomSurance() {
+    const roomSuranceLogo = "/assets/roomsurance-logo.png";
     return (
         <div id="room-surance-page-container">
             <div id="surance-header">
