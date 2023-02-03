@@ -128,12 +128,12 @@
         grid-auto-rows: 35px 50px auto auto auto auto auto;
         gap: 0px 60px;
         grid-template-areas:
-          "host-name review-card"
-          "location  review-card"
-          "awards    review-card"
-          "insurance  .........."
-          "description  ........"
-          "amenities  .........";
+          "host-name bookings"
+          "location  bookings"
+          "awards    bookings"
+          "insurance  review-card"
+          "description  review-card"
+          "amenities  review-card";
     width: 98%;
     margin: auto;
     margin-top: 35px;
@@ -150,6 +150,9 @@
     font-size: 22px;
     font-weight: 600;
 
+}
+#bookings{
+    grid-area: bookings;
 }
 
 
