@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+// import { ErrorMapper } from "../utilities";
 
 export default function AddBooking() {
     const {spotId} = useParams
@@ -8,8 +9,8 @@ export default function AddBooking() {
     const currentUserObject = useSelector(state => state.session)
 
     const [errors, setErrors] = useState([])
-    const [startDate, setStartDate] = useState[""]
-    const [endDate, setEndDate] = useState[""]
+    const [startDate, setStartDate] = useState("")
+    const [endDate, setEndDate] = useState("")
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -17,13 +18,26 @@ export default function AddBooking() {
             startDate,
             endDate
         }
+        console.log(booking)
     }
 
     return (
         <form onSubmit={onSubmit}>
-            <ul>
-
-            </ul>
+            {/* <ErrorMapper errArray={errors}/> */}
+            <label htmlFor="start-date">Check-in</label>
+            <input
+                type="date"
+                value={startDate}
+                onChange = {e => setStartDate(e.target.value)}
+            />
+            <label htmlFor="end-date">Check-in</label>
+            <input
+                type="date"
+                value={endDate}
+                onChange = {e => setEndDate(e.target.value)}
+            />
+            <button type="submit">Book Now</button>
         </form>
+
     )
 }
