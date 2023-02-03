@@ -63,6 +63,15 @@ export default function ProfileButton ({user, setLogin, setShowModal}) {
                         </button>
                     </NavLink>
                     </div>
+                    <div>
+
+                    <NavLink to="/bookings">
+                        <button className="demo-add-user-buttons">
+                            Your Upcoming Stays
+                        </button>
+                    </NavLink>
+                    </div>
+
 
                     <div id="logout-button-container">
                         <button className="demo-add-user-buttons" id="logout-button" onClick={clickHandler}>Log Out</button>

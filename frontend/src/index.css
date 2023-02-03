@@ -38,3 +38,9 @@ form textarea {
 form label {
     margin-bottom: -12px;
 }
+.tester{
+    font-size: larger;
+    position: absolute;
+    top: 25%;
+    text-align: center;
+}

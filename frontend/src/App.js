@@ -12,6 +12,7 @@ import ItIsNotHere from "./components/FourOhFour/fourOhFour";
 import ReviewPage from "./components/ReviewPage";
 import AddReviewForm from "./components/AddReviewForm";
 import EditReviewForm from "./components/EditReviewForm";
+import { UserBookings } from "./components/Bookings/UserBookings";
 
 
 
@@ -33,6 +34,9 @@ function App() {
     <Switch>
       <Route exact path="/">
         <SpotsPage />
+      </Route>
+      <Route path='/bookings'>
+        <UserBookings />
       </Route>
       <Route path='/spots/:spotId'>
         <SingleSpot />
