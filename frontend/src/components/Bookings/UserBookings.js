@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { csrfFetch } from "../../store/csrf";
 import { dateFormatter } from "../utilities";
+import "./bookings.css"
 
 
 
@@ -32,16 +33,19 @@ export function UserBookings() {
         <div className="bookingsContainer">
             <div className="title">Your Upcoming Stays</div>
             <div className="sub-title">Click on a reservation to see that spot's details</div>
+            <div className="booking-container">
+
             {bookings.length && bookings.map(booking => {
                 return (
-                    <div key={`booking-${booking.id}`}>
+                    <div className="booking" key={`booking-${booking.id}`}>
                         <div onClick={(() => history.push(`/spots/${booking.spotId}`))}>{dateFormatter(booking.startDate, booking.endDate)}</div>
-                        <button id={booking.id}
+                        <div id={booking.id}
                             onClick={deleteHandler}
-                        >Delete</button>
+                            >Delete</div>
                     </div>
                 )
             })}
+            </div>
         </div>
     )
 

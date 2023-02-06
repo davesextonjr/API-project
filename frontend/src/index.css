@@ -5,7 +5,7 @@
     margin: 0;
 }
 
-button.red, form button {
+button.red, form button{
     background-color: rgb(234, 12, 53);
     color: white;
     border: none;
