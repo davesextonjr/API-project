@@ -17,35 +17,36 @@ export default function AddBooking() {
         setErrors([])
         const millisecToday = new Date().getTime()
         const millisecStart = new Date(startDate).getTime()
+        const millisecEnd = new Date(endDate).getTime()
         console.log(millisecToday, millisecStart, millisecToday > millisecStart)
-        // if(startDate.getTime() < today.getTime()) {
-        //     setErrors(["You cannot book in the past"])
-        //     return null
-        // }
-        // if(endDate <= startDate){
-        //     setErrors(["Checkout must come after checkin"])
-        //     return
-        // }
+        if(millisecStart < millisecToday) {
+            setErrors(["You cannot book in the past"])
+            return null
+        }
+        if(millisecEnd <= millisecStart){
+            setErrors(["Checkout must come after checkin"])
+            return
+        }
 
-        // const daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-        // const currentDay = daysOfTheWeek[new Date(startDate).getDay()]
-        // console.log(currentDay)
+        const daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        const currentDay = daysOfTheWeek[new Date(startDate).getDay()]
+        console.log(currentDay)
 
-        // const lengthOfStay = (new Date(endDate).getTime() - new Date(startDate).getTime())/86400000
+        const lengthOfStay = (new Date(endDate).getTime() - new Date(startDate).getTime())/86400000
 
-        // const res = await csrfFetch(`/api/spots/${spotId}/bookings`, {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         startDate,
-        //         endDate
-        //     })
-        // }).catch( async res => {
-        //     const data = await res.json()
-        //     console.log(data)
-        //     if (data && data.errors) setErrors(data.errors);
+        const res = await csrfFetch(`/api/spots/${spotId}/bookings`, {
+            method: 'POST',
+            body: JSON.stringify({
+                startDate,
+                endDate
+            })
+        }).catch( async res => {
+            const data = await res.json()
+            console.log(data)
+            if (data && data.errors) setErrors(data.errors);
 
-        // })
-        // if (res.ok) history.push("/")
+        })
+        if (res.ok) history.push("/bookings")
     }
 
     return (
