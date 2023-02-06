@@ -10,40 +10,41 @@ export default function AddBooking() {
     const [errors, setErrors] = useState([])
     const [startDate, setStartDate] = useState("")
     const [endDate, setEndDate] = useState("")
-    const [isChange, setIsChange] = useState(false)
+
 
     const onSubmit = async e => {
         e.preventDefault()
         setErrors([])
-        const today = Date()
-        console.log(today, startDate, today > startDate)
-        if(startDate < today) {
-            setErrors(["You cannot book in the past"])
-            return null
-        }
-        if(endDate <= startDate){
-            setErrors(["Checkout must come after checkin"])
-            return
-        }
+        const millisecToday = new Date().getTime()
+        const millisecStart = new Date(startDate).getTime()
+        console.log(millisecToday, millisecStart, millisecToday > millisecStart)
+        // if(startDate.getTime() < today.getTime()) {
+        //     setErrors(["You cannot book in the past"])
+        //     return null
+        // }
+        // if(endDate <= startDate){
+        //     setErrors(["Checkout must come after checkin"])
+        //     return
+        // }
 
-        const daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-        const currentDay = daysOfTheWeek[new Date(startDate).getDay()]
-        console.log(currentDay)
+        // const daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        // const currentDay = daysOfTheWeek[new Date(startDate).getDay()]
+        // console.log(currentDay)
 
-        const lengthOfStay = (new Date(endDate).getTime() - new Date(startDate).getTime())/86400000
+        // const lengthOfStay = (new Date(endDate).getTime() - new Date(startDate).getTime())/86400000
 
-        const res = await csrfFetch(`/api/spots/${spotId}/bookings`, {
-            method: 'POST',
-            body: JSON.stringify({
-                startDate,
-                endDate
-            })
-        }).catch( async res => {
-            const data = await res.json()
-            console.log(data)
-            if (data && data.errors) setErrors(data.errors);
+        // const res = await csrfFetch(`/api/spots/${spotId}/bookings`, {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         startDate,
+        //         endDate
+        //     })
+        // }).catch( async res => {
+        //     const data = await res.json()
+        //     console.log(data)
+        //     if (data && data.errors) setErrors(data.errors);
 
-        })
+        // })
         // if (res.ok) history.push("/")
     }
 
@@ -57,7 +58,6 @@ export default function AddBooking() {
                 type="date"
                 value={startDate}
                 onChange = {e => setStartDate(e.target.value)}
-                min={Date()}
                 required
             />
             <label htmlFor="end-date">Check-in</label>
@@ -65,7 +65,6 @@ export default function AddBooking() {
                 type="date"
                 value={endDate}
                 onChange = {e => setEndDate(e.target.value)}
-                min={endDate ? endDate : Date()}
                 required
             />
             <button type="submit">Book Now</button>
