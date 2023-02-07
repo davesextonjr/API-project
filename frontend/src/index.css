@@ -5,7 +5,7 @@
     margin: 0;
 }
 
-button.red, form button {
+button.red, form button{
     background-color: rgb(234, 12, 53);
     color: white;
     border: none;
@@ -37,4 +37,10 @@ form textarea {
 
 form label {
     margin-bottom: -12px;
+}
+.tester{
+    font-size: larger;
+    position: absolute;
+    top: 25%;
+    text-align: center;
 }

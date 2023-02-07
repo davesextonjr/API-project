@@ -11,6 +11,7 @@ import EditSpotForm from "../EditSpotForm";
 import RoomSurance from "../RoomSuranceInfo";
 import AddReviewForm from "../AddReviewForm";
 import EditReviewForm from "../EditReviewForm";
+import AddBooking from "../Bookings/AddBooking";
 
 
 export default function SingleSpot() {
@@ -163,7 +164,7 @@ export default function SingleSpot() {
 
 
                 </div>
-
+                <AddBooking/>
 
                 <div id="spot-highlights-container">
                     <i className="fa-solid fa-medal icons">

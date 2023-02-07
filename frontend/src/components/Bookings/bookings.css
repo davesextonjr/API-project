@@ -1,0 +1,33 @@
+.bookingsContainer{
+    display: flex;
+    padding-top: 90px;
+    flex-direction: column;
+    max-height: 90%;
+    margin: auto;
+    align-items: center;
+    gap: 12px;
+    width: 90%;
+}
+
+.booking-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+.booking{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.booking div{
+    cursor: pointer;
+    padding: 10px;
+}
+
+.booking div:hover{
+    background-color: rgba(255, 52, 52, 0.544);
+    padding:10px;
+    border-radius: 7px;
+}
