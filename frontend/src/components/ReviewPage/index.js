@@ -9,14 +9,12 @@ export default function ReviewPage() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     // const currentUser = useSelector(state => state.session.user)
-    // console.log ('the current user is', currentUser)
 
     useEffect(() => {
         dispatch(getReviewsThunk(spotId))
     },[spotId])
 
     const reviews = useSelector(state => Object.values(state.reviews))
-    // console.log("reviews is truthy:", Boolean(reviews)) //trying to understand what this always comes back truthy
 
     if(!reviews.length) {
         return <div id="no-reviews">There are currently no reviews to display</div>
