@@ -35,23 +35,18 @@ export default function SingleSpot() {
     }, [spotId, showAuthorReviewModal])
 
     const currentSpot = useSelector(state => state.singleSpot[+spotId])
-    console.log(currentSpot)
 
     const reviewsArray = useSelector(state => Object.values(state.reviews));
     const latestReview = reviewsArray[reviewsArray.length - 1]
-    console.log("latest review", latestReview)
 
     const reviewerId = reviewsArray.map(reviewObj => reviewObj.userId)
 
 
     const currentUser = useSelector(state => state.session.user)
 
-    // if (currentUser && currentSpot) console.log("Owner Check: ", currentUser.id, currentSpot.Owner.id, currentUser.id === currentSpot.Owner.id)
 
 
     const userHasReviewed = currentUser && reviewerId.includes(currentUser.id)
-    // if (currentUser) console.log("current user has a review", reviewerId.includes(currentUser.id))
-    // console.log("Array of reviewer ids", reviewerId)
 
     if (!currentSpot) {
         return <div>No Spot Selcted</div>

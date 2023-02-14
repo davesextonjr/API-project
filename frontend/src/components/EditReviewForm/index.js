@@ -11,9 +11,7 @@ export default function EditReviewForm({onComplete}) {
     const currentUserObject = useSelector(state => state.session)
     const currentUserId = currentUserObject.user.id
     const currentReviewArray = useSelector(state => Object.values(state.reviews))
-    //console.log(currentReviewArray)
     const currentReview = currentReviewArray.find(review => review.userId === currentUserId)
-    //console.log(currentReview)
     const [errors, setErrors] = useState([]);
     const [stars, setStars] = useState(currentReview.stars);
     const [review, setReview] = useState(currentReview.review);

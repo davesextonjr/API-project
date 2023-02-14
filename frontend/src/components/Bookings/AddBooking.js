@@ -18,7 +18,6 @@ export default function AddBooking() {
         const millisecToday = new Date().getTime()
         const millisecStart = new Date(startDate).getTime()
         const millisecEnd = new Date(endDate).getTime()
-        console.log(millisecToday, millisecStart, millisecToday > millisecStart)
         if(millisecStart < millisecToday) {
             setErrors(["You cannot book in the past"])
             return null
@@ -30,7 +29,6 @@ export default function AddBooking() {
 
         const daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         const currentDay = daysOfTheWeek[new Date(startDate).getDay()]
-        console.log(currentDay)
 
         const lengthOfStay = (new Date(endDate).getTime() - new Date(startDate).getTime())/86400000
 
@@ -42,7 +40,6 @@ export default function AddBooking() {
             })
         }).catch( async res => {
             const data = await res.json()
-            console.log(data)
             if (data && data.errors) setErrors(data.errors);
 
         })

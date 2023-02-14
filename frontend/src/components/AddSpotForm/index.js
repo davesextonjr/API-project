@@ -25,7 +25,6 @@ export default function AddSpotForm() {
     const [url, setUrl] = useState("");
 
     const logo = "/assets/NoRoomAtTheInn.png"
-    console.log(sessionUser)
     if (!sessionUser) return (
         <div id="no-user-add-spot-container">
             <div id="no-user-add-spot-header">
