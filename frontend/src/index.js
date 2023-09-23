@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import './index.css';
 import App from './App';
 import { ModalProvider } from './context/Modal';
+import Loading from './components/Loading';
 
 import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
@@ -25,7 +26,9 @@ function Root() {
     <ReduxProvider store={store}>
       <ModalProvider>
       <BrowserRouter>
+      <Suspense fallback={Loading}>
         <App />
+      </Suspense>
       </BrowserRouter>
       </ModalProvider>
     </ReduxProvider>
